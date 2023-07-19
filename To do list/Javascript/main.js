@@ -4,6 +4,7 @@ let count = 0;
 const input = document.getElementById('inpt');
 const button = document.getElementById('btn');
 const listtasks = document.getElementById('list');
+const removeButton = document.getElementById('remove');
 
 button.addEventListener('click', e => {
     count++;
@@ -20,5 +21,10 @@ button.addEventListener('click', e => {
         listtasks.removeChild(tasks);
     });
 
+});
+
+removeButton.addEventListener('click', e => {
+    e.preventDefault();
+    listtasks.innerHTML = '';
 });
 
