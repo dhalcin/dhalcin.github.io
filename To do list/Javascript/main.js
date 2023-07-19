@@ -9,17 +9,21 @@ const removeButton = document.getElementById('remove');
 button.addEventListener('click', e => {
     count++;
     e.preventDefault();
-    const tasks = document.createElement('li');
-    const btnli = document.createElement('button');
     
-    tasks.textContent = input.value;
-    listtasks.appendChild(tasks);
-    tasks.appendChild(btnli);
-    input.value = '';
+    if (count <= 10) {
+        const tasks = document.createElement('li');
+        const btnli = document.createElement('button');
+    
+        tasks.textContent = input.value;
+        listtasks.appendChild(tasks);
+        tasks.appendChild(btnli);
+        input.value = '';
 
-    btnli.addEventListener('click', ()=>{
-        listtasks.removeChild(tasks);
-    });
+        btnli.addEventListener('click', ()=>{
+            listtasks.removeChild(tasks);
+        });
+    }
+
 
 });
 
