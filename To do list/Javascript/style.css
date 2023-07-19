@@ -55,9 +55,16 @@ main {
     cursor: pointer;
 }
 
-#lists {
+#section-list {
+    height: 50px;
+    width: 100px;
     display: flex;
-    flex-direction: column;
+}
+
+li > button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }
 
 footer {
