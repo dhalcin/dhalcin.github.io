@@ -11,14 +11,13 @@ button.addEventListener('click', e => {
 
     //Evaluating  the tasks entered
     if ((input.value) != 0) {
-    
         count++;
         const tasks = document.createElement('li');
         const btnli = document.createElement('button');
-    
-        tasks.textContent = input.value;
-        listtasks.appendChild(tasks);
+        
+        tasks.innerHTML = `<p>${input.value}</p>`;
         tasks.appendChild(btnli);
+        listtasks.appendChild(tasks);
         input.value = '';
 
         btnli.addEventListener('click', ()=>{
