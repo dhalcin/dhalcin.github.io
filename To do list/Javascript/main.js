@@ -26,7 +26,11 @@ button.addEventListener('click', e => {
         });
     
     } else {
-        alert('Error! ingresa un valor');
+        /*Adding SweetAlert2*/
+        Swal.fire({
+            title:'Error ingresa un valor valido'
+        });
+        input.value = '';
     }
     //Evaluating the tasks entered
 
