@@ -7,10 +7,12 @@ const listtasks = document.getElementById('list');
 const removeButton = document.getElementById('remove');
 
 button.addEventListener('click', e => {
-    count++;
     e.preventDefault();
+
+    //Evaluating  the tasks entered
+    if ((input.value) != 0) {
     
-    if (count <= 10) {
+        count++;
         const tasks = document.createElement('li');
         const btnli = document.createElement('button');
     
@@ -22,13 +24,18 @@ button.addEventListener('click', e => {
         btnli.addEventListener('click', ()=>{
             listtasks.removeChild(tasks);
         });
+    
+    } else {
+        alert('Error! ingresa un valor');
     }
-
+    //Evaluating the tasks entered
 
 });
 
 removeButton.addEventListener('click', e => {
     e.preventDefault();
     listtasks.innerHTML = '';
+    input.focus();
 });
+
 
