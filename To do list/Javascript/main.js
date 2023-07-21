@@ -10,12 +10,13 @@ button.addEventListener('click', e => {
     e.preventDefault();
 
     //Evaluating  the tasks entered
-    if ((input.value) != 0) {
+    if (input.value != 0) {
         count++;
         const tasks = document.createElement('li');
         const btnli = document.createElement('button');
-        
+
         tasks.innerHTML = `<p>${input.value}</p>`;
+        btnli.textContent = 'x';
         tasks.appendChild(btnli);
         listtasks.appendChild(tasks);
         input.value = '';
@@ -27,7 +28,7 @@ button.addEventListener('click', e => {
     } else {
         /*Adding SweetAlert2*/
         Swal.fire({
-            title:'Error ingresa un valor valido'
+            title:'Error ingresa una tarea'
         });
         input.value = '';
     }
