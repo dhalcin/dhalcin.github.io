@@ -17,7 +17,6 @@ body {
 }
 
 .container {
-    /*border: 2px solid yellow;*/
     height: 100vh;
     width: 50%;
     display: flex;
@@ -34,7 +33,6 @@ main {
     justify-content: center;
     align-items: center;
     gap: 45px;
-    /*border: 2px solid blue;*/
 }
 
 h2 {
@@ -45,12 +43,12 @@ h2 {
     display: flex;
     justify-content: center;
     gap: 15px;
-    /*border: 2px solid blue;*/
+
+    text-align: center;
 }
 
 #inpt {
     padding: 10px;
-    /*border: 10px grey;*/
     border-style: solid;
     border-width: 2px;
     border-color: grey;
@@ -62,52 +60,79 @@ h2 {
     color: #DDDADD;
 }
 
-/*#inpt:focus {
-    border-style: solid;
-    /*border-color: #3B71CA;
-}*/
-
 #btn {
     width: 15%;
-    font-size: 20px;
+    height: 90%;
     cursor: pointer;
+    background-color: #DDDADD;
+    border: none;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 1px;
+}
+
+#btn:hover {
+    background-color: rgba(5, 19, 37, 0.6);
+}
+
+#btn > img {
+    height: 15pt;
+    font-weight: bold;
+    margin: 0;
 }
 
 #remove {
     width: 20%;
+    height: 90%;
+    background-color: #DDDADD;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 1px;
     font-size: 20px;
     cursor: pointer;
 }
 
+#remove:hover {
+    background-color: #e31746;
+}
+
 #section-list {
-    /*height: 60%;*/
-    width: 90%;
-    /*display: flex;*/
+    width: 70%;
 }
 
 #list {
+    font-weight: bold;
     display: grid;
     gap: 10px;
-    grid-template-columns: 1fr 1fr;
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: bold;
-    /*border: 2px solid red;*/
 }
 
 #list > li {
+    font-family: 'Ubuntu', sans-serif;
     list-style: none;
-    border: 2px solid blue;
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    gap: 10px;
+    gap: 20px;
+    justify-content: start;
+    font-size: 20px;
+}
+
+li > p {
+    font-weight: 700;
 }
 
 li > button {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    /*position: absolute;*/
+    color: wheat;
+    margin-left: auto;
+    border: none;
+    background-color: #031712;
+    padding: 10px 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+li > button:hover {
+    background-color: #e31746;
 }
 
 footer > ol {
