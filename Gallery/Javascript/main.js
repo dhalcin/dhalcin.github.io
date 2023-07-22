@@ -7,7 +7,6 @@ let button = document.getElementById('btn');
 function addButton() {
     if (button) {
         button.style.display = 'block';
-
     }
 }
 
@@ -15,8 +14,9 @@ function addDiv() {
     div.style.display = 'block';
 }
 
-image.forEach(img => {
+image.forEach((img, index) => {
     img.addEventListener('click', ()=> {
+        div.style.backgroundImage = `url(/images/${index+1}.jpg)`;
         addDiv();
         addButton();
     });
