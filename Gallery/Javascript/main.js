@@ -2,19 +2,17 @@
 const image = document.querySelectorAll('img');
 const divGallery = document.getElementById('gallery');
 const div = document.getElementById('show');
-const button = document.createElement('button');
+let button = document.getElementById('btn');
 
-function addButton() {  
-    button.id = 'btn';
-    button.textContent = 'X';
-    button.style.position = 'absolute';
-    divGallery.appendChild(button);
-    
+function addButton() {
+    if (button) {
+        button.style.display = 'block';
+
+    }
 }
 
 function addDiv() {
-    div.style.width = '90%';
-    div.style.height = '75%';
+    div.style.display = 'block';
 }
 
 image.forEach(img => {
@@ -24,6 +22,7 @@ image.forEach(img => {
     });
 });
 
-button.addEventListener('click', ()=> {
-    div.innerHTML = '';
+button.addEventListener('click', (e)=> {
+    div.style.display = 'none';
+    button.style.display = 'none';
 });
