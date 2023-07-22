@@ -16,13 +16,19 @@ function addDiv() {
 
 image.forEach((img, index) => {
     img.addEventListener('click', ()=> {
-        div.style.backgroundImage = `url(/images/${index+1}.jpg)`;
+        div.style.backgroundImage = `url(../Javascript/images/${index+1}.jpg)`;
         addDiv();
         addButton();
     });
 });
 
-button.addEventListener('click', (e)=> {
+button.addEventListener('click', ()=> {
     div.style.display = 'none';
     button.style.display = 'none';
 });
+
+document.body.addEventListener('keydown', (e)=> {
+    if (e.key === 'Escape') {
+        alert('escape presionado');
+    }
+})
