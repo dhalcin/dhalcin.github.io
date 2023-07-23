@@ -1,34 +1,41 @@
 
 const image = document.querySelectorAll('img');
-const divGallery = document.getElementById('gallery');
+const contentDiv = document.getElementById('show-images');
+const btn = document.getElementById('remove');
 const div = document.getElementById('show');
-let button = document.getElementById('btn');
 
-function addButton() {
-    if (button) {
-        button.style.display = 'block';
+function addElement(index) {
+
+    if (contentDiv) {
+        contentDiv.style.display = 'block'
+    }
+
+    if (btn) {
+        btn.style.display = 'block';
+    }
+
+    if (div) {
+        div.style.backgroundImage = `url(../Javascript/images/${index + 1}.jpg)`;
+        div.style.display = 'block';
     }
 }
 
-function addDiv() {
-    div.style.display = 'block';
+function removeElement() {
+    contentDiv.style.display = 'none';
 }
 
 image.forEach((img, index) => {
     img.addEventListener('click', ()=> {
-        div.style.backgroundImage = `url(../Javascript/images/${index+1}.jpg)`;
-        addDiv();
-        addButton();
+        addElement(index);
     });
 });
 
-button.addEventListener('click', ()=> {
-    div.style.display = 'none';
-    button.style.display = 'none';
+document.body.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        removeElement();
+    }
 });
 
-document.body.addEventListener('keydown', (e)=> {
-    if (e.key === 'Escape') {
-        alert('escape presionado');
-    }
-})
+btn.addEventListener('click', ()=> {
+    removeElement();
+});
