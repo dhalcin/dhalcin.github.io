@@ -72,7 +72,6 @@ p {
     justify-content: center;
     grid-template-columns: 620px 620px 620px;
     position: relative;
-
 }
 
 img {
@@ -95,6 +94,10 @@ img {
 
 #contact-list > li {
     list-style: none;
+}
+
+a {
+    color: #EEEEEE;
 }
 
 #contact-list > li > a:hover{
@@ -137,4 +140,47 @@ img {
     left: 10%; 
     background-size: cover;
     background-position: center;
+}
+
+@media (max-width: 1024px) {
+
+    #navbar-ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #sobre-mi, #proyectos, #contactos, #ayuda {
+        font-size: 14px;
+        font-weight: bold;
+        color: #030F12;
+    }
+
+    .content {
+        display: flex;
+        justify-content: center;
+    }
+    .content > p {
+        font-size: 15px;
+    }
+
+    #gallery {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #contact-list {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    #show {
+        width: 90%;
+        height: 45%;
+    }
+    
+    #remove {
+        width: 5%;
+    }
 }
