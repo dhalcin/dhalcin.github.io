@@ -7,7 +7,13 @@
     box-sizing: border-box;
 }
 
-.container {
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#container {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -66,45 +72,13 @@ p {
     justify-content: center;
     grid-template-columns: 620px 620px 620px;
     position: relative;
+
 }
 
 img {
     width: 100%;
     height: 100%;
     cursor: pointer;
-}
-
-.btn-show {
-    display: flex;
-    flex-direction: column;
-}
-
-#btn {
-    display: none;
-    position: fixed;
-    top: 30%;
-    left: 0%;
-    cursor: pointer;
-    z-index: 2;
-    width: 45px;
-    height: 30px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #EEEEEE;
-    background-color: #010609;
-
-}
-
-#show {
-    display: none;
-    z-index: 1;
-    position: absolute;
-    width: 91%;
-    height: 91%;
-    top: 4%;
-    left: 5%;  
-    background-size: cover;
-    background-position: center;
 }
 
 #contact {
@@ -129,4 +103,37 @@ img {
 
 #contact-list > li > a > i{
     font-size: 1.8rem;
+}
+
+#show-images {
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(3, 15, 18, 0.8);
+    top: 0%;
+    width: 100%;
+    height: 100%;
+}
+
+#remove {
+    display: none;
+    background-color: #010609;
+    color: #EEEEEE;
+    position: fixed;
+    z-index: 1;
+    top: 2%;
+    left: 1%;
+    width: 3%;
+    height: 3%;
+}
+
+#show {
+    display: none;
+    z-index: 1;
+    position: fixed;
+    width: 80%;
+    height: 80%;
+    top: 5%;
+    left: 10%; 
+    background-size: cover;
+    background-position: center;
 }
