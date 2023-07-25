@@ -1,0 +1,91 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff654e;
+}/* radial-gradient(circle at 12.5% 12.5%, #ff8e55 0, #ff7d53 16.67%, #ff654e 33.33%, #ff654e 50%, #ff654e 66.67%, #de0040 83.33%, #d50043 100%)*/
+
+.container {
+    height: 60%;
+    width: 30%;
+    display: grid;
+    gap: 10px;
+   /* border: 2px solid blue;*/
+    justify-content: center;
+    
+}
+
+#inpt-div {
+    border: 2px solid blue;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+#other, #inpt {
+    text-align: end;
+}
+
+#other {
+    border: none;
+    width: 100%;
+    height: 50px;
+    background-color: red;
+    font-size: 30px
+}
+
+#other:focus {
+    outline: none;
+}
+
+#inpt {
+    border: none;
+    width: 100%;
+    height: 50px;
+    background-color: yellow;
+    font-size: 30px;
+}
+
+#btn-inpt {
+    display: none;
+}
+
+#btns {
+    /*border: 2px solid yellow;*/
+    width: 100%;
+    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, 66px);
+    grid-template-rows: repeat(5, 50px);
+}
+
+#btns > button {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#add {
+    grid-row: 2 /span 2;
+    grid-column: 4;
+}
+
+#equal {
+    grid-row: 4 / span 2;
+    grid-column: 4;
+
+}
+
+#zero {
+    grid-column: 1 / span 2;
+}
+
+button {
+    cursor: pointer;
+}
