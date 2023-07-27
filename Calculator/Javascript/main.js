@@ -28,17 +28,6 @@ function operations() {
             input.value = Number(numbers[0]) / Number(numbers[1]);
             break;
     }
-
-    /*if (operators.includes('+')) {
-        input.value = Number(numbers[0]) + Number(numbers[1]);
-    } else if (operators.includes('-')) {
-        input.value = Number(numbers[0]) - Number(numbers[1]);
-    } else if (operators.includes('*')) {
-        input.value = Number(numbers[0]) * Number(numbers[1]);
-        console.log(Number(numbers[0]) * Number(numbers[1]));
-    } else if (operators.includes('÷')) {
-        input.value = Number(numbers[0]) / Number(numbers[1]);
-    }*/
 }
 
 function elements(e) {
@@ -52,7 +41,8 @@ function elements(e) {
             if (ouput.value[(ouput.value).length -1] === '÷') {
                 ouput.value += '';
             } else {
-                ouput.value += input.value + this.innerText;
+                ouput.value += input.value + '÷'; //thi.innerText;
+                input.value = '0';
             }
             break;
 
@@ -60,7 +50,8 @@ function elements(e) {
             if (ouput.value[(ouput.value).length -1] === '*') {
                 ouput.value += '';
             } else {
-                ouput.value += input.value + this.innerText;
+                ouput.value += input.value + '*';
+                input.value = '0';
             }
             break;
             
@@ -68,7 +59,8 @@ function elements(e) {
             if (ouput.value[(ouput.value).length -1] === '+') {
                 ouput.value += '';
             } else {
-                ouput.value += input.value + this.innerText;
+                ouput.value += input.value + '+';
+                input.value = '0';
             }
             break;
         
@@ -76,7 +68,8 @@ function elements(e) {
             if (ouput.value[(ouput.value).length -1] === '-') {
                 ouput.value += '';
             } else {
-                ouput.value += input.value + this.innerText;
+                ouput.value += input.value + '-';
+                input.value = '0';
             }
             break;
         
@@ -88,14 +81,13 @@ function elements(e) {
             break;
         
         default:
-            input.value = '';
-            if (input.value === '0') { //?
-                input.value += this.innerText;
-                console.log('primer valor ingresado');
+
+            if (input.value[0] === '0') {
+                let value = (input.value).replace('0', this.innerText);
+                input.value = value;
             } else {
                 input.value += this.innerText;
             }
-
     }
 
 }
@@ -103,11 +95,3 @@ function elements(e) {
 buttons.forEach((button) => {
     button.addEventListener('click', elements);
 });
-
-/*            /*let numbers = ouput.value.split(/\+|\-|\=|\÷/g).filter(Boolean);
-            let operator = ouput.value.split(/[0-9]/g).filter(Boolean);
-            if (operator.includes('÷')) {
-  
-               console.log(Number(numbers[0]) / Number(numbers[1]));
-                input.value = Number(numbers[0]) / Number(numbers[1])
-            }*/ 
