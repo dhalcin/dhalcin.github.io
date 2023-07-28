@@ -17,29 +17,43 @@ function operations() {
     switch (true) {
         case operators.includes('+'):
             input.value = Number(numbers[0]) + Number(numbers[1]);
+            ouput.value = input.value + '+';
+            console.log('in operations function');
+            input.value = '0';
             break;
         case operators.includes('*'):
             input.value = Number(numbers[0]) * Number(numbers[1]);
+            ouput.value = input.value + '*';
+            input.value = '0';
             break;
         case operators.includes('-'):
             input.value = Number(numbers[0]) - Number(numbers[1]);
+            ouput.value = input.value + '-';
+            input.value = '0';
             break;
         case operators.includes('÷'):
             input.value = Number(numbers[0]) / Number(numbers[1]);
+            ouput.value = input.value + '÷';
+            input.value = '0';
             break;
     }
 }
 
 function element(e) {
     if (ouput.value[(ouput.value).length - 1] === e) {
-        ouput.value += input.value + e;
+        ouput.value += input.value ;
         input.value = '0';
+        console.log('referencia if');
+        operations();
     } else if (input.value === '0') {
         ouput.value += e;
+        console.log('referencia else if');
     } 
     else {
+        console.log(input.value);
         ouput.value += input.value + e;
         input.value = '0';
+        console.log('referencia else');
     }
 }
 
