@@ -30,6 +30,19 @@ function operations() {
     }
 }
 
+function element(e) {
+    if (ouput.value[(ouput.value).length - 1] === e) {
+        ouput.value += input.value + e;
+        input.value = '0';
+    } else if (input.value === '0') {
+        ouput.value += e;
+    } 
+    else {
+        ouput.value += input.value + e;
+        input.value = '0';
+    }
+}
+
 function elements(e) {
     e.preventDefault();
     switch (this.id) {
@@ -38,46 +51,24 @@ function elements(e) {
             break;
         
         case 'division':
-            if (ouput.value[(ouput.value).length -1] === '÷') {
-                ouput.value += '';
-            } else {
-                ouput.value += input.value + '÷'; //thi.innerText;
-                input.value = '0';
-            }
+            element('÷');
             break;
 
         case 'multiply':
-            if (ouput.value[(ouput.value).length -1] === '*') {
-                ouput.value += '';
-            } else {
-                ouput.value += input.value + '*';
-                input.value = '0';
-            }
+            element('*')
             break;
             
         case 'add':
-            if (ouput.value[(ouput.value).length -1] === '+') {
-                ouput.value += '';
-            } else {
-                ouput.value += input.value + '+';
-                input.value = '0';
-            }
+            element('+');
             break;
         
         case 'substract':
-            if (ouput.value[(ouput.value).length -1] === '-') {
-                ouput.value += '';
-            } else {
-                ouput.value += input.value + '-';
-                input.value = '0';
-            }
+            element('-');
             break;
         
         case 'equal':
             ouput.value += `${input.value}${this.innerText}`;
-
             operations();
-
             break;
         
         default:
