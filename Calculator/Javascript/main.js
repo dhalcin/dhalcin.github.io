@@ -1,102 +1,185 @@
-const ouput = document.getElementById('ouput');
 const input = document.getElementById('inpt');
 const buttons = document.querySelectorAll('button');
+const ouput = document.getElementById('opt');
 
-ouput.disabled = true;
-input.value = '0';
-
-function reset() {
-    ouput.value = '';
-    input.value = '0';
-}
-
-function operations() {
-    let numbers = ouput.value.split(/\+|\-|\=|\*|\÷/g).filter(Boolean);
-    let operators = ouput.value.split(/[0-9]/g).filter(Boolean);
-
-    switch (true) {
-        case operators.includes('+'):
-            input.value = Number(numbers[0]) + Number(numbers[1]);
-            ouput.value = input.value + '+';
-            console.log('in operations function');
-            input.value = '0';
-            break;
-        case operators.includes('*'):
-            input.value = Number(numbers[0]) * Number(numbers[1]);
-            ouput.value = input.value + '*';
-            input.value = '0';
-            break;
-        case operators.includes('-'):
-            input.value = Number(numbers[0]) - Number(numbers[1]);
-            ouput.value = input.value + '-';
-            input.value = '0';
-            break;
-        case operators.includes('÷'):
-            input.value = Number(numbers[0]) / Number(numbers[1]);
-            ouput.value = input.value + '÷';
-            input.value = '0';
-            break;
-    }
-}
-
-function element(e) {
-    if (ouput.value[(ouput.value).length - 1] === e) {
-        ouput.value += input.value ;
-        input.value = '0';
-        console.log('referencia if');
-        operations();
-    } else if (input.value === '0') {
-        ouput.value += e;
-        console.log('referencia else if');
-    } 
-    else {
-        console.log(input.value);
-        ouput.value += input.value + e;
-        input.value = '0';
-        console.log('referencia else');
-    }
-}
+let action = null;
+let number1 = '';
+let number2 = '';
+let result = '';
+let sum = 0;
+let sub = 0;
+let mul = 0;
+let div = 0;
 
 function elements(e) {
-    e.preventDefault();
-    switch (this.id) {
+    ouput.textContent = `${result}${e}`;
+    input.textContent = `${result}`;
+}
+
+function postEqual() {
+    input.textContent = result;
+    number1 = result;
+    number2 = '';
+}
+
+function equal() {
+    if (sum === 1) {
+        result = Number(number1) + Number(number2);
+        ouput.textContent = `${number1}+${number2}=`;
+        postEqual();
+    } else if (sub === 1) {
+        result = Number(number1) - Number(number2);
+        ouput.textContent = `${number1}-${number2}=`;
+        postEqual();
+    } else if (mul === 1) {
+        result = Number(number1) * Number(number2);
+        ouput.textContent = `${number1}*${number2}=`;
+        postEqual();
+    } else if (div === 1) {
+        result = Number(number1) / Number(number2);
+        ouput.textContent = `${number1}/${number2}=`;
+        postEqual();
+    } else {
+        postEqual();
+    } 
+}
+
+function reset() {
+    ouput.textContent = '';
+    input.textContent = '0';
+    action = null;
+    number1 = '';
+    number2 = '';
+    result = '';
+    sum = 0;
+    sub = 0;
+    mul = 0;
+    div = 0;
+}
+
+function remove() {
+    let input_input = input.textContent;
+    if (input.textContent !== '0' || input.textContent !== '') {
+        if (input_input.length === 1) {
+            element = input_input.replace(input_input[input_input.length - 1], '0');
+            input.textContent = element;
+        } else {
+            console.log((input.textContent).length);
+            neww = input_input.replace(input_input[input_input.length - 1], '');
+            input.textContent = neww;
+            console.log((input.textContent).length);
+        }
+    }
+}
+
+function operate(e) {
+    if (ouput.textContent === '') {
+        ouput.textContent = number1 + e;
+    } else {        
+        ouput.textContent += number2;
+        if (e === '+') {
+            result = Number(number1) + Number(number2);
+            elements(e);
+            postEqual();
+        }
+        if (e === '-') {
+            result = Number(number1) - Number(number2);
+            elements(e);
+            postEqual();
+        }
+        if (e === '*') {
+            if (number2 !== '') {
+                result = Number(number1) * Number(number2);
+                elements(e);
+                postEqual();
+            }
+        }
+        if (e === '/') {
+            if (number2 !== '') {
+                result = Number(number1) / Number(number2);
+                elements(e);
+                postEqual();
+            }
+        }
+        if (e === '=') {
+            equal(number1, number2);
+        }
+
+    }
+}
+function numbers(val) {
+    if (action === null || number1 === '') {
+        number1 += val;
+        input.textContent = number1;  
+    } else {
+        number2 += val;
+        input.textContent = number2;
+    }
+}
+
+function keys() {
+    e = this.id;
+    val = this.innerText;
+    switch (e) {
         case 'reset':
             reset();
             break;
-        
-        case 'division':
-            element('÷');
+
+        case 'remove':
+            remove();
             break;
 
-        case 'multiply':
-            element('*')
-            break;
-            
         case 'add':
-            element('+');
+            action = '+';
+            sum = 1;
+            operate(action);
             break;
         
         case 'substract':
-            element('-');
+            action = '-';
+            sub = 1;
+            operate(action);
+            break;
+        
+        case 'multiply':
+            action = '*';
+            mul = 1;
+            operate(action);
+            break;
+        
+        case 'division':
+            action = '/';
+            div = 1;
+            operate(action);
             break;
         
         case 'equal':
-            ouput.value += `${input.value}${this.innerText}`;
-            operations();
+            action = '=';
+            operate(action);
             break;
         
         default:
-
-            if (input.value[0] === '0') {
-                let value = (input.value).replace('0', this.innerText);
-                input.value = value;
-            } else {
-                input.value += this.innerText;
-            }
+            numbers(val);
     }
-
 }
 
-buttons.forEach((button) => {
-    button.addEventListener('click', elements);
+buttons.forEach(button => {
+    button.addEventListener('click', keys);
 });
+
+function keysNumbers(e, key) {
+    for (let i = 0; i <= 9; i++) {
+        e.key = toString(0);
+        console.log(e);
+    }
+}
+
+document.body.addEventListener('keydown', (e) => {
+
+    if (e.key === '1') {
+        numbers('1');
+    }
+    if (e.key === '2') {
+        numbers('2');
+    }
+})
