@@ -15,7 +15,7 @@ function addElement(index) {
     }
 
     if (div) {
-        div.style.backgroundImage = `url(/images/${index + 1}.jpg)`;
+        div.style.backgroundImage = `url(/Javascript/images/${index + 1}.jpg)`;
         div.style.display = 'block';
     }
 }
