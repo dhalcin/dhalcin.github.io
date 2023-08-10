@@ -23,8 +23,8 @@ function postEqual() {
 }
 
 function equal() {
-    //console.log(`el valor de div dentro de equal es : ${div}`);
     if (sum === 1) {
+        console.log(`number1 : ${number1} number2 : ${number2}`);
         result = Number(number1) + Number(number2);
         ouput.textContent = `${number1}+${number2}=`;
         sum = 0;
@@ -75,15 +75,60 @@ function remove() {
     }
 }
 
+function operations(n1, op, n2) {
+    n1 = Number(n1);
+    n2 = Number(n2);
+    switch (op) {
+        case '+':
+            result = n1 + n2;
+            elements(op);
+            postEqual();
+            break;
+        case '-':
+            result = n1 - n2;
+            elements(op);
+            postEqual();
+            break;
+        case '*':
+            result = n1 * n2;
+            elements(op);
+            postEqual();
+            break;
+        case '/':
+            result = n1 / n2;
+            elements(op);
+            postEqual();
+            break;
+    }
+}
+
 function operate(e) {
-    //console.log(`el valor de e dentro de la funcion operate es : ${e}`);
-    console.log(`el contenido de ouput.textContent es ${ouput.textContent}`);
     if (ouput.textContent === '') {
         ouput.textContent = number1 + e;
-    } else {        
+    } else {
+        /*ouput.textContent += number2;
+        let num = (ouput.textContent).split(/\+|\-|\=|\*|\÷/g).filter(Boolean);
+        let op = (ouput.textContent).split(/[0-9]/g).filter(Boolean);
+        if (num.length > 1 || op.length > 1) operations(num[0], op[0], num[1]);
+        if (e === '+') operations(number1, e, number2);
+        if (e === '-') operations(number1, e, number2);
+        if (e === '*') {
+            if (number2 !== '') {
+                operations(number1, e, number2);
+            } else {
+                ouput.textContent = `${number1}${e}`;
+            }
+        }
+        if (e === '/') {
+            if (number2 !== '') {
+                operations(number1, e, number2);
+            } else {
+                ouput.textContent = `${number1}${e}`;
+            }  
+        }
+        if (e === '=') equal(); */
         ouput.textContent += number2;
         if (e === '+') {
-            //console.log(`el contenido de ouput.textContent es ${ouput.textContent}`);
             result = Number(number1) + Number(number2);
             elements(e);
             postEqual();
@@ -103,13 +148,11 @@ function operate(e) {
             }
         }
         if (e === '/') {
-            //onsole.log((ouput.textContent).includes('/'));
-            //console.log(`el valor de number2 es : ${number2}`);
             if (number2 !== '') {
                 result = Number(number1) / Number(number2);
                 elements(e);
                 postEqual();
-            } //hacer el if antes de ouput.textContent += number2;
+            }
             else {
                 ouput.textContent = `${number1}${e}`;
             }
@@ -117,9 +160,6 @@ function operate(e) {
         if (e === '=') {
             equal(number1, number2);
         }
-        //elements(e);
-        //postEqual();
-
     }
 }
 function numbers(val) {
@@ -197,4 +237,4 @@ document.body.addEventListener('keydown', (e) => {
     if (e.key === '2') {
         numbers('2');
     }
-})
+});
