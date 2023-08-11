@@ -24,7 +24,6 @@ function postEqual() {
 
 function equal() {
     if (sum === 1) {
-        console.log(`number1 : ${number1} number2 : ${number2}`);
         result = Number(number1) + Number(number2);
         ouput.textContent = `${number1}+${number2}=`;
         sum = 0;
@@ -75,7 +74,7 @@ function remove() {
     }
 }
 
-function operations(n1, op, n2) {
+/*function operations(n1, op, n2) {
     n1 = Number(n1);
     n2 = Number(n2);
     switch (op) {
@@ -83,50 +82,44 @@ function operations(n1, op, n2) {
             result = n1 + n2;
             elements(op);
             postEqual();
+            //sum = 0;
+            //console.log(`dentro de operations +, sum ${sum}, sub ${sub}, mul ${mul}, div ${div}`);
             break;
         case '-':
             result = n1 - n2;
+            //console.log(`se esta restando`);
             elements(op);
             postEqual();
+            //sub = 0;
+            //console.log(`dentro de operations -, sum ${sum}, sub ${sub}, mul ${mul}, div ${div}`);
             break;
         case '*':
             result = n1 * n2;
+            //console.log(`se esta multiplicando`);
             elements(op);
             postEqual();
+            //mul = 0;
+            //console.log(`dentro de operations *, sum ${sum}, sub ${sub}, mul ${mul}, div ${div}`);
             break;
         case '/':
             result = n1 / n2;
+            //console.log(`se esta diviendo`);
             elements(op);
             postEqual();
-            break;
+            //div = 0;
+            //console.log(`dentro de operations /, sum ${sum}, sub ${sub}, mul ${mul}, div ${div}`);
+            break;;
     }
-}
+}*/
 
 function operate(e) {
     if (ouput.textContent === '') {
-        ouput.textContent = number1 + e;
+        if (e === '=') {
+            ouput.textContent = number1;
+        } else {
+            ouput.textContent = number1 + e;
+        }
     } else {
-        /*ouput.textContent += number2;
-        let num = (ouput.textContent).split(/\+|\-|\=|\*|\÷/g).filter(Boolean);
-        let op = (ouput.textContent).split(/[0-9]/g).filter(Boolean);
-        if (num.length > 1 || op.length > 1) operations(num[0], op[0], num[1]);
-        if (e === '+') operations(number1, e, number2);
-        if (e === '-') operations(number1, e, number2);
-        if (e === '*') {
-            if (number2 !== '') {
-                operations(number1, e, number2);
-            } else {
-                ouput.textContent = `${number1}${e}`;
-            }
-        }
-        if (e === '/') {
-            if (number2 !== '') {
-                operations(number1, e, number2);
-            } else {
-                ouput.textContent = `${number1}${e}`;
-            }  
-        }
-        if (e === '=') equal(); */
         ouput.textContent += number2;
         if (e === '+') {
             result = Number(number1) + Number(number2);
@@ -222,19 +215,15 @@ buttons.forEach(button => {
     button.addEventListener('click', keys);
 });
 
-function keysNumbers(e, key) {
-    for (let i = 0; i <= 9; i++) {
-        e.key = toString(0);
-        console.log(e);
-    }
-}
-
 document.body.addEventListener('keydown', (e) => {
-
-    if (e.key === '1') {
-        numbers('1');
-    }
-    if (e.key === '2') {
-        numbers('2');
-    }
+    if (e.key === '1') numbers('1');
+    if (e.key === '2') numbers('2');
+    if (e.key === '3') numbers('3');
+    if (e.key === '4') numbers('4');
+    if (e.key === '5') numbers('5');
+    if (e.key === '6') numbers('6');
+    if (e.key === '7') numbers('7');
+    if (e.key === '8') numbers('8');
+    if (e.key === '9') numbers('9');
+    if (e.key === '0') numbers('0');
 });
