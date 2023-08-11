@@ -226,4 +226,5 @@ document.body.addEventListener('keydown', (e) => {
     if (e.key === '8') numbers('8');
     if (e.key === '9') numbers('9');
     if (e.key === '0') numbers('0');
+    if (e.key === '+') console.log('suma');
 });
