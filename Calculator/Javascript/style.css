@@ -79,3 +79,23 @@ button {
     cursor: pointer;
     border-radius: 10px;
 }
+
+/*@media (max-width: 1220px) {
+    .container {
+        width: 95%;
+    }
+    #inpt-div {
+        width:89%;
+        height: 17%;
+    }
+    #btns {
+        width: 89%;
+        height: 50%;
+        padding: 15px;
+    }
+    #btns > button {
+        font-weight: bold;
+        margin: 0px;
+    }
+}*/
+
