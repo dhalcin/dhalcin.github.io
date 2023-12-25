@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="css/library.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+
+        </header>
+
+        <main>
+
+            <div class="title-div">
+                <h1 id="title">LIBRARY</h1>
+            </div>
+
+            <div class="button-add">
+                <button id="add"><i class="bi bi-plus-circle"></i></button>
+            </div>
+
+            <div class="books">
+
+                <div class="dialog-container">
+                    <dialog id="dialog">
+                        <form action="#">
+                            <label for="title-book">Title</label>
+                            <input type="text" id="title-book" required>
+
+                            <label for="author">Author</label>
+                            <input type="text" id="author" required>
+
+                            <label for="pages">Pages</label>
+                            <input type="number" id="pages" required>
+
+                            <div class="buttons-form">
+                                <button id="save">save</button>
+                                <button id="closed">closed</button>
+                            </div>
+                        </form>
+                    </dialog>
+                </div>
+                
+            </div>
+
+        </main>
+
+        <footer>
+            <ol>
+                <li><i class="bi bi-twitter"></i></li>
+                <li><i class="bi bi-github"></i></li>
+            </ol>
+        </footer>
+    </div>
+    
+    <script src="js/library.js"></script>
+</body>
+</html>
