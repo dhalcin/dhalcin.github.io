@@ -4,6 +4,10 @@ const dialog = document.getElementById('dialog');
 const save = document.getElementById('save');
 const closed = document.getElementById('closed');
 
+const content = document.getElementsByClassName('content');
+const div = document.createElement('div');
+div.classList.add('book')
+
 function closedDialog() {
     dialog.close();
 }
@@ -11,11 +15,7 @@ function closedDialog() {
 add.addEventListener('click', ()=> {
     dialog.showModal();
 })
-save.addEventListener('click', e => {
-    
-    closedDialog();
-})
-closed.addEventListener('click', e => {
-    e.preventDefault();
-    closedDialog();
+
+save.addEventListener('click', ()=> {
+    content.appendChild(div);
 })
