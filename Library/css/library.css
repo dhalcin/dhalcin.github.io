@@ -66,7 +66,7 @@ p {
 }
 
 .books {
-    width: 80%;
+    width: 90%;
     justify-self: center;
     display: flex;
     justify-content: center;
@@ -87,6 +87,7 @@ p {
     top: 30%;
     left: 40%;
     border: none;
+    outline: none;
 }
 
 form {
@@ -121,32 +122,70 @@ label {
     font-size: 2rem;
 }
 
+.status {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+.status-buttons {
+    align-self: center;
+    margin-top: 1px;
+}
+
+.status-label {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
 .buttons-form {
     height: 10%;
-    background-color: red;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 45%;
+    margin-top: 30px;
+}
+
+#save, #closed {
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    padding: 10px;
+    width: 60%;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+}
+#save {
+    width: 70%;
 }
 
 .content {
     width: 100%;
-    height: 100%;
-    display: flex;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 200px;
     gap: 10px;
 }
 
 .book {
-    width: 500px;
-    height: 200px;
     border: none;
     border-radius: 15px;
-    background-color: rgb(17, 26, 39);
     background-color: rgba(17, 26, 39, 0.95);
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    align-items: center;
+    gap: 10px;
+    padding: 20px;
     justify-content: center;
     color: wheat;
 }
+
+
 
 footer {
     background-color: #0f172a;
