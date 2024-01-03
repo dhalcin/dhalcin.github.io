@@ -11,7 +11,7 @@ function Book(title, author, pages) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    //this.read = read;
+    this.read = false;
 }
 
 function verification(str) {
@@ -33,9 +33,18 @@ function books() {
     for (let i = 0; i < myLibrary.length; i++) {
         let book = document.createElement('div');
         let buttonDelet = document.createElement('button');
+        buttonDelet.classList.add('delet');
         book.dataset.index = i;
-        buttonDelet.textContent = 'Delet';
         book.classList.add('book');
+        let readButton = document.createElement('button');
+        readButton.textContent = myLibrary[i].read ? 'Mark Unread' : 'Mark Read';
+
+        readButton.addEventListener('click', ()=> {
+            myLibrary[i].read = !myLibrary[i].read;
+            readButton.textContent = myLibrary[i].read ? 'Mark Unread' : 'Mark Read';
+        })
+
+        book.appendChild(readButton);
 
         buttonDelet.addEventListener('click', e => {
             const indexToRemove = e.target.parentElement.dataset.index;
@@ -49,6 +58,7 @@ function books() {
             p.textContent = `${property} : ${myLibrary[i][property]}\n`;
             book.appendChild(p);
         }
+
         book.appendChild(buttonDelet);
         content.appendChild(book);
     }
