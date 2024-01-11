@@ -37,6 +37,7 @@ function books() {
         book.dataset.index = i;
         book.classList.add('book');
         let readButton = document.createElement('button');
+        readButton.classList.add('status')
         readButton.textContent = myLibrary[i].read ? 'Mark Unread' : 'Mark Read';
 
         readButton.addEventListener('click', ()=> {
@@ -54,8 +55,23 @@ function books() {
         })
 
         for (let property in myLibrary[i]) {
+            // Formatting : Title, Author and Pages
             let p = document.createElement('p');
-            p.textContent = `${property} : ${myLibrary[i][property]}\n`;
+            let format = property;
+            
+            switch (format) {
+                case 'title':
+                    p.textContent = `Title : ${myLibrary[i][property]}\n`;
+                    break;
+                
+                case 'author':
+                    p.textContent = `Author : ${myLibrary[i][property]}\n`;
+                    break;
+                
+                case 'pages':
+                    p.textContent = `Pages : ${myLibrary[i][property]}\n`;
+            }
+
             book.appendChild(p);
         }
 
@@ -78,6 +94,7 @@ save.addEventListener('click', (e)=> {
         addBookToLibrary(title, author, pages);
     } 
 
+    //
     dialog.close();
 })
 
