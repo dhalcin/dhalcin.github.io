@@ -32,10 +32,14 @@ function addBookToLibrary(title, author, pages) {
 function books() {
     for (let i = 0; i < myLibrary.length; i++) {
         let book = document.createElement('div');
-        let buttonDelet = document.createElement('button');
-        buttonDelet.classList.add('delet');
         book.dataset.index = i;
         book.classList.add('book');
+
+        let buttonDelet = document.createElement('button');
+        buttonDelet.classList.add('delet');
+        buttonDelet.innerHTML = '<img src="/images/trash.svg" alt="trash">';
+
+
         let readButton = document.createElement('button');
         readButton.classList.add('status')
         readButton.textContent = myLibrary[i].read ? 'Mark Unread' : 'Mark Read';
@@ -94,7 +98,6 @@ save.addEventListener('click', (e)=> {
         addBookToLibrary(title, author, pages);
     } 
 
-    //
     dialog.close();
 })
 
