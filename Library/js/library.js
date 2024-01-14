@@ -30,58 +30,71 @@ function addBookToLibrary(title, author, pages) {
 }
 
 function books() {
-    for (let i = 0; i < myLibrary.length; i++) {
-        let book = document.createElement('div');
-        book.dataset.index = i;
-        book.classList.add('book');
+   for (let i = 0; i < myLibrary.length; i++) {
+    
+    // Creating container
+    let contentBook = document.createElement('div');
+    contentBook.classList.add('contentBook');
+    
+    // Adding the book container
+    let book = document.createElement('div');
+    book.dataset.index = i;
+    book.classList.add('book-container');
 
-        let buttonDelet = document.createElement('button');
-        buttonDelet.classList.add('delet');
-        buttonDelet.innerHTML = '<img src="/images/trash.svg" alt="trash">';
+    // Adding the buttons container
+    let contentButton = document.createElement('div');
+    contentButton.classList.add('buttons-container');
 
+    let readButton = document.createElement('button');
+    readButton.classList.add('status')
+    readButton.textContent = myLibrary[i].read ? 'Unread' : 'Read';
 
-        let readButton = document.createElement('button');
-        readButton.classList.add('status')
-        readButton.textContent = myLibrary[i].read ? 'Mark Unread' : 'Mark Read';
+    let buttonDelet = document.createElement('button');
+    buttonDelet.classList.add('delet');
+    buttonDelet.innerHTML = '<img src="/images/trash.svg" alt="trash">';
 
-        readButton.addEventListener('click', ()=> {
-            myLibrary[i].read = !myLibrary[i].read;
-            readButton.textContent = myLibrary[i].read ? 'Mark Unread' : 'Mark Read';
-        })
-
-        book.appendChild(readButton);
-
-        buttonDelet.addEventListener('click', e => {
-            const indexToRemove = e.target.parentElement.dataset.index;
-            myLibrary.splice(indexToRemove, 1);
-            content.innerHTML = '';
-            books();
-        })
-
-        for (let property in myLibrary[i]) {
-            // Formatting : Title, Author and Pages
-            let p = document.createElement('p');
-            let format = property;
+    for (let property in myLibrary[i]) {
+        // Formatting : Title, Author and Pages
+        let p = document.createElement('p');
+        let format = property;
+        
+        switch (format) {
+            case 'title':
+                p.textContent = `Title : ${myLibrary[i][property]}\n`;
+                break;
             
-            switch (format) {
-                case 'title':
-                    p.textContent = `Title : ${myLibrary[i][property]}\n`;
-                    break;
-                
-                case 'author':
-                    p.textContent = `Author : ${myLibrary[i][property]}\n`;
-                    break;
-                
-                case 'pages':
-                    p.textContent = `Pages : ${myLibrary[i][property]}\n`;
-            }
-
-            book.appendChild(p);
+            case 'author':
+                p.textContent = `Author : ${myLibrary[i][property]}\n`;
+                break;
+            
+            case 'pages':
+                p.textContent = `Pages : ${myLibrary[i][property]}\n`;
         }
 
-        book.appendChild(buttonDelet);
-        content.appendChild(book);
+        book.appendChild(p);
     }
+
+    readButton.addEventListener('click', ()=> {
+        myLibrary[i].read = !myLibrary[i].read;
+        readButton.textContent = myLibrary[i].read ? 'Unread' : 'Read';
+        readButton.classList.toggle('unread');
+    })
+
+    buttonDelet.addEventListener('click', e => {
+        const indexToRemove = e.target.parentElement.dataset.index;
+        myLibrary.splice(indexToRemove, 1);
+        content.innerHTML = '';
+        books();
+    })
+
+    contentBook.appendChild(book);
+    contentButton.appendChild(readButton);
+    contentButton.appendChild(buttonDelet);
+    contentBook.appendChild(contentButton);
+
+    content.appendChild(contentBook);
+   }
+
 }
 
 add.addEventListener('click', ()=> {
