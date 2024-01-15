@@ -51,7 +51,7 @@ function books() {
 
     let buttonDelet = document.createElement('button');
     buttonDelet.classList.add('delet');
-    buttonDelet.innerHTML = '<img src="/images/trash.svg" alt="trash">';
+    buttonDelet.innerHTML = '<img src="./images/trash.svg" alt="trash">';
 
     for (let property in myLibrary[i]) {
         // Formatting : Title, Author and Pages
@@ -103,14 +103,20 @@ add.addEventListener('click', ()=> {
 
 save.addEventListener('click', (e)=> {
     e.preventDefault();
-    let title = document.getElementById('title-book').value;
-    let author = document.getElementById('author').value;
-    let pages = document.getElementById('pages').value;
+    let titleInput = document.getElementById('title-book');
+    let authorInput = document.getElementById('author');
+    let pagesInput = document.getElementById('pages');
+    
+    let title = titleInput.value;
+    let author = authorInput.value;
+    let pages = pagesInput.value;
     
     if (verification(title) && verification(author) && verification(pages)) {
         addBookToLibrary(title, author, pages);
+        titleInput.value = '';
+        authorInput.value = '';
+        pagesInput.value = '';  
     } 
-
     dialog.close();
 })
 
