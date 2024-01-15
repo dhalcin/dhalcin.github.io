@@ -51,7 +51,7 @@ function books() {
 
     let buttonDelet = document.createElement('button');
     buttonDelet.classList.add('delet');
-    buttonDelet.innerHTML = '<img src="./images/trash.svg" alt="trash">';
+    buttonDelet.innerHTML = '<img src="../Libray/images/trash.svg" alt="trash">';
 
     for (let property in myLibrary[i]) {
         // Formatting : Title, Author and Pages
