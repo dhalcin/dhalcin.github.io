@@ -1,49 +1,45 @@
-
 function Player(name, symbol) {
-    return { name, symbol }
+    return { name, symbol };
 }
 
-// Method to create a table
-function Gameboard() {
-    // * Matrix to represent the board
+const Gameboard = (() => {
     const board = [
-        ['X', '0', ''],
-        ['', 'X', ''],
-        ['', '0', 'X']
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
     ];
+
+    const updteBroad = (row, col, symbol) => {
+        return board[row][col] = symbol;
+    };
 
     const printBoard = () => {
         for (let row of board) {
-            console.log(row.join(' | '));
+            console.log(row.join('  '));
         }
-    };
+    }
 
-    return { board, printBoard };
-}
+    return  { updteBroad, printBoard };
 
-function GameController() {
+})();
+
+const game = (() => {
     const player1 = Player('Player 1', 'X');
     const player2 = Player('Player 2', '0');
 
-    // * Current turn, starts with player 1
     let currentPlayer = player1;
-    const gameInstance = Gameboard();
+    
+    const addSymbol = (row, col) => {
+        return Gameboard.updteBroad(row, col, currentPlayer['symbol']);
+    }
 
     const switchPlayer = () => {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
     };
 
-    // Method for movement on the board
-    const makeMove = (row, col) => {
-        if (gameInstance.board[row][col] === '') {
-            switchPlayer();
-            return true;
-        }
-        return false;
+    const makeMove = () => {
+
     }
 
-    return { makeMove };
-}
-
-const game = GameController();
-game.makeMove(0, 0);
+    return { addSymbol };
+})();
