@@ -4,7 +4,7 @@ function Player(name, symbol) {
 
 const Gameboard = (() => {
     const board = [
-        ['', '', ''],
+        ['X', '', ''],
         ['', '', ''],
         ['', '', '']
     ];
@@ -19,11 +19,11 @@ const Gameboard = (() => {
         }
     }
 
-    return  { updteBroad, printBoard };
+    return  { board, updteBroad, printBoard };
 
 })();
 
-const game = (() => {
+const GameController = (() => {
     const player1 = Player('Player 1', 'X');
     const player2 = Player('Player 2', '0');
 
@@ -37,9 +37,45 @@ const game = (() => {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
     };
 
-    const makeMove = () => {
+    const winConditions = [
+        [[0, 0], [0, 1], [0, 2]],
+        [[1, 0], [1, 1], [1, 2]],
+        [[2, 0], [2, 1], [2, 2]],
+        [[0, 0], [1, 0], [2, 0]],
+        [[0, 1], [1, 1], [2, 1]],
+        [[0, 2], [1, 2], [2, 2]],
+        [[0, 0], [1, 1], [2, 2]],
+        [[0, 2], [1, 1], [2, 0]]
+    ];
 
+    const checkWin = () => {
+        for (let condition of winConditions) {
+            let symbols = condition.map(([row, col]) => Gameboard.board[row][col]);
+            if (symbols.every(symbol => symbol === 'X') || symbols.every(symbol => symbol === '0')) {
+                return console.log(`Win`);
+            }
+        }
+        return console.log(`Not winers`);
     }
 
-    return { addSymbol };
+    const coord = () => {
+        let inpt = prompt('enter coordinate');
+        let [row, col] = inpt.split('').map(cr => parseInt(cr));
+        return { row, col };
+    }
+    const makeMove = () => {
+        //let { row ,col } = coord();
+        for (let i = 0; i < (Gameboard.board).length; i++) {
+            const cells = Gameboard.board[i];
+            //const cell = cells.map(rowCol => rowCol !== '');
+            for (let j = 0; j < cells.length; j++) {
+                console.log(cells[j]);
+            }
+             
+        }
+    }
+
+    return { makeMove };
 })();
+
+GameController.makeMove();
