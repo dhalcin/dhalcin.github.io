@@ -4,7 +4,7 @@ function Player(name, symbol) {
 
 const Gameboard = (() => {
     const board = [
-        ['X', '', ''],
+        ['', '', ''],
         ['', '', ''],
         ['', '', '']
     ];
@@ -30,11 +30,13 @@ const GameController = (() => {
     let currentPlayer = player1;
     
     const addSymbol = (row, col) => {
-        return Gameboard.updteBroad(row, col, currentPlayer['symbol']);
+        Gameboard.updteBroad(row, col, currentPlayer['symbol']);
+        return Gameboard.printBoard();
     }
 
     const switchPlayer = () => {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
+        console.log(currentPlayer);
     };
 
     const winConditions = [
@@ -59,22 +61,25 @@ const GameController = (() => {
     }
 
     const coord = () => {
-        let inpt = prompt('enter coordinate');
+        let inpt = prompt('enter');
         let [row, col] = inpt.split('').map(cr => parseInt(cr));
         return { row, col };
     }
-    const makeMove = () => {
-        //let { row ,col } = coord();
-        for (let i = 0; i < (Gameboard.board).length; i++) {
-            const cells = Gameboard.board[i];
-            //const cell = cells.map(rowCol => rowCol !== '');
-            for (let j = 0; j < cells.length; j++) {
-                console.log(cells[j]);
+    
+    const verification = (row, col) => {
+        let elemnt = Gameboard.board[row][col];
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if ((row === i && col === j) && (elemnt === 'X' || elemnt === '0')) return false;
             }
-             
-        }
+        } 
+        return true;
     }
 
+    const makeMove = () => {
+
+    }
+    
     return { makeMove };
 })();
 
