@@ -26,9 +26,9 @@ const Gameboard = (() => {
 const GameController = (() => {
     const player1 = Player('Player 1', 'X');
     const player2 = Player('Player 2', '0');
-
-    let currentPlayer = player1;
     
+    let currentPlayer = player1;
+
     const addSymbol = (row, col) => {
         Gameboard.updteBroad(row, col, currentPlayer['symbol']);
         return Gameboard.printBoard();
@@ -36,7 +36,16 @@ const GameController = (() => {
 
     const switchPlayer = () => {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
-        console.log(currentPlayer);
+        
+        while (true) {
+            let { row, col } = coord();
+            if (verification(row, col)) {
+                addSymbol(row, col);
+                currentPlayer = player1;
+                break;
+            }
+        }
+
     };
 
     const winConditions = [
@@ -61,7 +70,7 @@ const GameController = (() => {
     }
 
     const coord = () => {
-        let inpt = prompt('enter');
+        let inpt = prompt();
         let [row, col] = inpt.split('').map(cr => parseInt(cr));
         return { row, col };
     }
@@ -77,7 +86,20 @@ const GameController = (() => {
     }
 
     const makeMove = () => {
-
+        let play1 = 0;
+        while (true) {
+            let { row, col } = coord();
+            while(verification(row, col)) {
+                addSymbol(row, col);
+                switchPlayer();
+                play1++;
+                break;
+            }
+            
+            if (play1 === 3) {
+                break;
+            }
+        }
     }
     
     return { makeMove };
