@@ -36,7 +36,6 @@ const GameController = (() => {
 
     const switchPlayer = () => {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
-        
         while (true) {
             let { row, col } = coord();
             if (verification(row, col)) {
@@ -45,7 +44,6 @@ const GameController = (() => {
                 break;
             }
         }
-
     };
 
     const winConditions = [
@@ -62,11 +60,18 @@ const GameController = (() => {
     const checkWin = () => {
         for (let condition of winConditions) {
             let symbols = condition.map(([row, col]) => Gameboard.board[row][col]);
-            if (symbols.every(symbol => symbol === 'X') || symbols.every(symbol => symbol === '0')) {
-                return console.log(`Win`);
+            let fristSymbol = symbols[0];
+            if (fristSymbol && symbols.every(symbol => symbol === fristSymbol)) {
+                if (fristSymbol === 'X') return currentPlayer = player1;
+                if (fristSymbol === '0') return currentPlayer = player2;
             }
         }
-        return console.log(`Not winers`);
+        let cellOcuped = Gameboard.board.every(row => row.every(cell => cell));
+        if (cellOcuped) {
+            return 'draw';
+        }
+
+        return false;
     }
 
     const coord = () => {
@@ -86,21 +91,24 @@ const GameController = (() => {
     }
 
     const makeMove = () => {
-        let play1 = 0;
         while (true) {
             let { row, col } = coord();
-            while(verification(row, col)) {
-                addSymbol(row, col);
-                switchPlayer();
-                play1++;
-                break;
-            }
             
-            if (play1 === 3) {
+            if (!verification(row, col)) {
+                continue;
+            }
+    
+            addSymbol(row, col);
+    
+            if (checkWin()) {
+                console.log(`¡${currentPlayer.name} gana el juego!`);
                 break;
             }
+    
+            switchPlayer();
         }
-    }
+    };       
+        
     
     return { makeMove };
 })();
