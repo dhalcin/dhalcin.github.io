@@ -4,10 +4,12 @@ function Player(name, symbol) {
 
 const Gameboard = (() => {
     const board = [
-        ['X', '', ''],
-        ['', 'X', ''],
-        ['', '', 'X']
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
     ];
+
+    const getBoard = () => board;
 
     const updteBroad = (row, col, symbol) => {
         return board[row][col] = symbol;
@@ -15,11 +17,11 @@ const Gameboard = (() => {
 
     const printBoard = () => {
         for (let row of board) {
-            console.log(row.join('  '));
+            console.log(row.join(' | '));
         }
     }
 
-    return  { board, updteBroad, printBoard };
+    return  { getBoard, updteBroad, printBoard };
 
 })();
 
@@ -135,17 +137,22 @@ const GameController = (() => {
 })();
 
 const Display = (() => {
-    const viewGame = () => {
-        const container = document.querySelector('.container');
-        for (let e of Gameboard.board) {
-            let p = document.createElement('p');
-            p.textContent = e;
-            container.appendChild(p);
-        }
-    } 
+    
+    const board = Gameboard.getBoard();
+    const divBoard = document.querySelector('.divBoard');
 
-    return { viewGame };
+    const divSquare = () => {
+        board.forEach(arry => {
+            arry.forEach(div => {
+                let square = document.createElement('div');
+                square.classList.add('square');
+                divBoard.appendChild(square);
+            })
+        })              
+    }
+    
+
+    return { divSquare };
 })();
 
-Display.viewGame();
-
+Display.divSquare(); 
