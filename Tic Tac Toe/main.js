@@ -62,17 +62,11 @@ const GameController = (() => {
             let symbols = condition.map(([row, col]) => Gameboard.board[row][col]);
             let fristSymbol = symbols[0];
             if (fristSymbol && symbols.every(symbol => symbol === fristSymbol)) {
-                if (fristSymbol === 'X') return player1;
-                if (fristSymbol === '0') return player2;
+                return fristSymbol === 'X' ? player1 : player2;
             }
         }
         let cellOcuped = Gameboard.board.every(row => row.every(cell => cell));
-        if (cellOcuped) {
-            return 'draw';
-        }
-
-        //return false;
-        //return null;
+        if (cellOcuped) return 'draw';
     }
 
     const coord = () => {
@@ -94,11 +88,12 @@ const GameController = (() => {
     const handleWin = () => {
         let winner = checkWin();
         if (winner) {
-            console.log(`¡${winner.name} gana el juego!`);
+            console.log(winner === 'draw' ? 'Empate' : `¡${winner.name} has won the game!`);
             return true;
         }
-        //return false;
+        return false;
     };
+    
 
     const makeMove = () => {
         while (true) {
@@ -116,8 +111,7 @@ const GameController = (() => {
         }
     
     };       
-        
-    
+          
     return { makeMove };
 })();
 
