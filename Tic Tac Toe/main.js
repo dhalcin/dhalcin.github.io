@@ -62,8 +62,8 @@ const GameController = (() => {
             let symbols = condition.map(([row, col]) => Gameboard.board[row][col]);
             let fristSymbol = symbols[0];
             if (fristSymbol && symbols.every(symbol => symbol === fristSymbol)) {
-                if (fristSymbol === 'X') return currentPlayer = player1;
-                if (fristSymbol === '0') return currentPlayer = player2;
+                if (fristSymbol === 'X') return player1;
+                if (fristSymbol === '0') return player2;
             }
         }
         let cellOcuped = Gameboard.board.every(row => row.every(cell => cell));
@@ -71,7 +71,8 @@ const GameController = (() => {
             return 'draw';
         }
 
-        return false;
+        //return false;
+        //return null;
     }
 
     const coord = () => {
@@ -90,23 +91,30 @@ const GameController = (() => {
         return true;
     }
 
+    const handleWin = () => {
+        let winner = checkWin();
+        if (winner) {
+            console.log(`¡${winner.name} gana el juego!`);
+            return true;
+        }
+        //return false;
+    };
+
     const makeMove = () => {
         while (true) {
             let { row, col } = coord();
             
-            if (!verification(row, col)) {
-                continue;
-            }
+            if (!verification(row, col)) continue;
     
             addSymbol(row, col);
     
-            if (checkWin()) {
-                console.log(`¡${currentPlayer.name} gana el juego!`);
-                break;
-            }
+            if (handleWin()) break;
     
             switchPlayer();
+
+            if (handleWin()) break;
         }
+    
     };       
         
     
