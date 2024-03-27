@@ -4,9 +4,9 @@ function Player(name, symbol) {
 
 const Gameboard = (() => {
     const board = [
-        ['', '', ''],
-        ['', '', ''],
-        ['', '', '']
+        ['X', '', ''],
+        ['', 'X', ''],
+        ['', '', 'X']
     ];
 
     const updteBroad = (row, col, symbol) => {
@@ -134,4 +134,18 @@ const GameController = (() => {
     return { makeMove };
 })();
 
-GameController.makeMove();
+const Display = (() => {
+    const viewGame = () => {
+        const container = document.querySelector('.container');
+        for (let e of Gameboard.board) {
+            let p = document.createElement('p');
+            p.textContent = e;
+            container.appendChild(p);
+        }
+    } 
+
+    return { viewGame };
+})();
+
+Display.viewGame();
+
