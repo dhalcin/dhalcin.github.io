@@ -4,9 +4,9 @@ function Player(name, symbol) {
 
 const Gameboard = (() => {
     const board = [
-        ['', '', ''],
-        ['', '', ''],
-        ['', '', '']
+        ['X', 'X', '0'],
+        ['0', '0', 'X'],
+        ['X', '0', 'X']
     ];
 
     const getBoard = () => board;
@@ -137,20 +137,27 @@ const GameController = (() => {
 })();
 
 const Display = (() => {
-    
     const board = Gameboard.getBoard();
     const divBoard = document.querySelector('.divBoard');
 
+    const addElements = (createdElement, element, clas, node) => {
+        createdElement = document.createElement(element);
+        createdElement.classList.add(clas);
+        node.appendChild(createdElement);
+        return createdElement;
+    }
+
     const divSquare = () => {
         board.forEach(arry => {
-            arry.forEach(div => {
-                let square = document.createElement('div');
-                square.classList.add('square');
-                divBoard.appendChild(square);
-            })
-        })              
+            arry.forEach(symbol => {
+                let square = addElements('square', 'div', 'square', divBoard);
+                if (symbol !== '') {
+                    let span = addElements('span', 'span', 'span', square);
+                    span.textContent = symbol;
+                }
+            });
+        });
     }
-    
 
     return { divSquare };
 })();
