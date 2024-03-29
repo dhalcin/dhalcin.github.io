@@ -4,9 +4,9 @@ function Player(name, symbol) {
 
 const Gameboard = (() => {
     const board = [
-        ['X', 'X', '0'],
-        ['0', '0', 'X'],
-        ['X', '0', 'X']
+        ['X', '', ''],
+        ['X', '', ''],
+        ['X', '', '']
     ];
 
     const getBoard = () => board;
@@ -101,7 +101,7 @@ const GameController = (() => {
             }
         } 
         return true;
-    }
+    }   
 
     const handleWin = () => {
         let winner = checkWin();
@@ -133,33 +133,43 @@ const GameController = (() => {
     
     };       
           
-    return { makeMove };
+    return { verification, makeMove };
 })();
 
 const Display = (() => {
     const board = Gameboard.getBoard();
     const divBoard = document.querySelector('.divBoard');
 
-    const addElements = (createdElement, element, clas, node) => {
-        createdElement = document.createElement(element);
-        createdElement.classList.add(clas);
-        node.appendChild(createdElement);
-        return createdElement;
-    }
-
     const divSquare = () => {
+        let squares = [];
         board.forEach(arry => {
-            arry.forEach(symbol => {
-                let square = addElements('square', 'div', 'square', divBoard);
-                if (symbol !== '') {
-                    let span = addElements('span', 'span', 'span', square);
-                    span.textContent = symbol;
-                }
+            arry.forEach(() => {
+                let square = document.createElement('div');
+                square.classList.add('square');
+                divBoard.appendChild(square);
+                squares.push(square);
             });
-        });
+        })
+        return squares;
     }
 
-    return { divSquare };
+    const clickCell = () => {
+        
+        const cells = divSquare(); 
+
+        console.log(cells);
+
+        /**
+         *for (let i = 0; i < cells.length; i++) {
+            cells[i].addEventListener('click', () => {
+                
+        })
+        }
+         */
+    }
+
+    return { clickCell };
 })();
 
-Display.divSquare(); 
+Display.clickCell();
+
