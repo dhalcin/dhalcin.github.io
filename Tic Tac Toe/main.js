@@ -1,15 +1,13 @@
 function Player(name, symbol) {
-    return { name, symbol };
+    return {name, symbol};
 }
 
-const Gameboard = (() => {
+const GameBoard = (() => {
     const board = [
-        ['X', '', ''],
-        ['X', '', ''],
-        ['X', '', '']
-    ];
-
-    const getBoard = () => board;
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
+    ]
 
     const updteBroad = (row, col, symbol) => {
         return board[row][col] = symbol;
@@ -22,7 +20,6 @@ const Gameboard = (() => {
     }
 
     return  { getBoard, updteBroad, printBoard };
-
 })();
 
 const GameController = (() => {
@@ -137,7 +134,7 @@ const GameController = (() => {
 })();
 
 const Display = (() => {
-    const board = Gameboard.getBoard();
+    const board = GameBoard.getBoard();
     const divBoard = document.querySelector('.divBoard');
 
     const divSquare = () => {
@@ -148,24 +145,31 @@ const Display = (() => {
                 square.classList.add('square');
                 divBoard.appendChild(square);
                 squares.push(square);
-            });
+                
+            })
         })
         return squares;
     }
 
     const clickCell = () => {
+        const cells = divSquare();
         
-        const cells = divSquare(); 
-
-        console.log(cells);
-
-        /**
-         *for (let i = 0; i < cells.length; i++) {
+        for (let i = 0; i < cells.length; i++) {
             cells[i].addEventListener('click', () => {
-                
-        })
+                let hasSpan = Array.from(cells[i].childNodes).some(node => node.nodeName === 'SPAN');
+                if (!(hasSpan)) {
+                    addSymbol(cells[i]);
+                    GameBoard.updateBoard(row, col)
+                }
+            });
         }
-         */
+
+    }
+
+    const addSymbol = (cell) => {
+        let span = document.createElement('span');
+        span.textContent = 'X';
+        cell.appendChild(span);
     }
 
     return { clickCell };
