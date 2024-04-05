@@ -1,136 +1,93 @@
+
 function Player(name, symbol) {
-    return {name, symbol};
+    return { name, symbol}
 }
 
 const GameBoard = (() => {
-    const board = [
-        ['', '', ''],
-        ['', '', ''],
-        ['', '', '']
-    ]
+    const board = [];
 
-    const updteBroad = (row, col, symbol) => {
-        return board[row][col] = symbol;
+    const marker = {
+        mark: 'X'
+    };
+
+    const getBoard = () => {
+        return board;
     };
 
     const printBoard = () => {
-        for (let row of board) {
-            console.log(row.join(' | '));
+        for (let i = 0; i < 9; i++) {
+            board.push(marker)
         }
+      return getBoard();  
     }
 
-    return  { getBoard, updteBroad, printBoard };
+    printBoard();
+
+    const updateBoard = (index, mark) => {
+        board[index] = { mark };
+    }
+
+    return { board, getBoard, updateBoard }
 })();
 
 const GameController = (() => {
     const player1 = Player('Player 1', 'X');
-    const player2 = Player('Player 2', '0');
-    
-    let currentPlayer = player1;
+    const player2 = Player('Player 2', 'O');
+    let currentPlayer;
 
-    const addSymbol = (row, col) => {
-        Gameboard.updteBroad(row, col, currentPlayer['symbol']);
-        return Gameboard.printBoard();
+    const getPlayer = () => {
+        const playerOne = document.getElementById('player1');
+        const playerTwo = document.getElementById('player2');
+
+        playerOne.addEventListener('click', () => {
+            currentPlayer = player1;
+            console.log(currentPlayer);
+        });
+
+        playerTwo.addEventListener('click', () => {
+            currentPlayer = player2;
+            console.log(currentPlayer);
+        });
+
     }
-
-    const switchPlayer = () => {
-        currentPlayer = currentPlayer === player1 ? player2 : player1;
-        while (true) {
-            let { row, col } = coord();
-            if (verification(row, col)) {
-                addSymbol(row, col);
-                currentPlayer = player1;
-                break;
-            }
-        }
-    };
-
-    /* Array containing possible winning combinations in tic-tac-toe game.
-       Each subarray represents a winning combination, where each element is
-       a coordinate [row, column] on the game board*/
 
     const winConditions = [
         // Winning combinations by rows
-        [[0, 0], [0, 1], [0, 2]], // First row
-        [[1, 0], [1, 1], [1, 2]], // Second row
-        [[2, 0], [2, 1], [2, 2]], // Third row
+        [0, 1, 2], // First row
+        [3, 4, 5], // Second row
+        [6, 7, 8], // Third row
 
         // Winning combinations by columns
-        [[0, 0], [1, 0], [2, 0]], // First column
-        [[0, 1], [1, 1], [2, 1]], // Second column
-        [[0, 2], [1, 2], [2, 2]], // Third column
+        [0, 3, 6], // First column
+        [1, 4, 7], // Second column
+        [2, 5, 8], // Third row
 
         // Winning combinations by diagonals
-        [[0, 0], [1, 1], [2, 2]], // Main diagonal
-        [[0, 2], [1, 1], [2, 0]]  // Secondary diagonal
+        [0, 4, 8], // Main diagonal
+        [2, 4, 6] // Secondary diagonal
     ];
 
-    const checkWin = () => {
-        for (let condition of winConditions) {
-            // Extact symbols from the game board based on the current condition
-            let symbols = condition.map(([row, col]) => Gameboard.board[row][col]);
-            let fristSymbol = symbols[0];
-
-            // Check if all symbols in the current condition are the same
-            if (fristSymbol && symbols.every(symbol => symbol === fristSymbol)) {
-                return fristSymbol === 'X' ? player1 : player2;
-            }
-        }
-        let cellOcuped = Gameboard.board.every(row => row.every(cell => cell));
-        if (cellOcuped) return 'draw';
-    }
-
-    const coord = () => {
-        let inpt = prompt();
-        let [row, col] = inpt.split('').map(cr => parseInt(cr));
-        return { row, col };
-    }
-    
-    // Function to verify if a cell is empty or already occupied
-    const verification = (row, col) => {
-        let elemnt = Gameboard.board[row][col];
-
-        // Iterate through each cell on the game board
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                // Check if the current cell matches the specified row and column, and if it's already occupied
-                if ((row === i && col === j) && (elemnt === 'X' || elemnt === '0')) return false;
-            }
-        } 
-        return true;
-    }   
-
-    const handleWin = () => {
-        let winner = checkWin();
-        if (winner) {
-            console.log(winner === 'draw' ? 'draw' : `¡${winner.name} has won the game!`);
+    const verification = (index, symbol) => {
+        let cell = GameBoard.getBoard();
+        if (cell[index].mark === '') {
+            GameBoard.updateBoard(index, symbol)
             return true;
-        }
-        return false;
-    };
-    
+        }   
+    }
 
-    const makeMove = () => {
-        while (true) {
-            // Get the coordinate selected by the player
-            let { row, col } = coord();
-            
-            // Check if the coordinates are valid
-            if (!verification(row, col)) continue;
-    
-            addSymbol(row, col);
-    
-            // Check for a winner after adding the symbol
-            if (handleWin()) break;
-    
-            switchPlayer();
-
-            if (handleWin()) break;
+    const checkWin = () => {
+        let board = GameBoard.getBoard();
+        // Iterating ower the defined win conditions
+        for (let i = 0; i < winConditions.length; i++) {
+            let symbols = winConditions[i];
+            // Verifying if all symbols in the specified positions indicate that there is a winner
+            if (symbols.every(index => board[index].mark === 'X')) {
+                    console.log('Player 1 is winner');
+            }
         }
-    
-    };       
-          
-    return { verification, makeMove };
+    }
+ 
+    return { getPlayer, verification, checkWin };
 })();
 
 const Display = (() => {
@@ -139,41 +96,37 @@ const Display = (() => {
 
     const divSquare = () => {
         let squares = [];
-        board.forEach(arry => {
-            arry.forEach(() => {
-                let square = document.createElement('div');
-                square.classList.add('square');
-                divBoard.appendChild(square);
-                squares.push(square);
-                
-            })
+        board.forEach(() => {
+            let square = document.createElement('div');
+            square.classList.add('square');
+            divBoard.appendChild(square);
+            squares.push(square);
         })
         return squares;
     }
 
     const clickCell = () => {
-        const cells = divSquare();
-        
+        let cells = divSquare();
+
         for (let i = 0; i < cells.length; i++) {
             cells[i].addEventListener('click', () => {
+                // Checkin if the cell is empty
+                // Get the child nodes of divBoard and check if the contain span
                 let hasSpan = Array.from(cells[i].childNodes).some(node => node.nodeName === 'SPAN');
-                if (!(hasSpan)) {
-                    addSymbol(cells[i]);
-                    GameBoard.updateBoard(row, col)
+                if (!(hasSpan) && GameController.verification(i, 'X')) {
+                    addSpan(cells[i]);
                 }
             });
         }
-
     }
 
-    const addSymbol = (cell) => {
+    const addSpan = (cell) => {
         let span = document.createElement('span');
         span.textContent = 'X';
         cell.appendChild(span);
     }
 
-    return { clickCell };
+    return { divSquare, clickCell };
 })();
 
-Display.clickCell();
-
+GameController.getPlayer();
