@@ -7,7 +7,7 @@ const GameBoard = (() => {
     const board = [];
 
     const marker = {
-        mark: 'X'
+        mark: ''
     };
 
     const getBoard = () => {
@@ -35,18 +35,18 @@ const GameController = (() => {
     const player2 = Player('Player 2', 'O');
     let currentPlayer;
 
-    const getPlayer = () => {
+    const getPlayer = (callback) => {
         const playerOne = document.getElementById('player1');
         const playerTwo = document.getElementById('player2');
 
         playerOne.addEventListener('click', () => {
             currentPlayer = player1;
-            console.log(currentPlayer);
+            callback(currentPlayer)
         });
 
         playerTwo.addEventListener('click', () => {
             currentPlayer = player2;
-            console.log(currentPlayer);
+            callback(currentPlayer)
         });
 
     }
@@ -93,6 +93,7 @@ const GameController = (() => {
 const Display = (() => {
     const board = GameBoard.getBoard();
     const divBoard = document.querySelector('.divBoard');
+    let gameStarted = false;
 
     const divSquare = () => {
         let squares = [];
@@ -105,28 +106,43 @@ const Display = (() => {
         return squares;
     }
 
-    const clickCell = () => {
-        let cells = divSquare();
+    const clickCell = (symbol) => {
+        
+        if (!gameStarted) {
+            return; 
+        }
 
+        let cells = divSquare();
         for (let i = 0; i < cells.length; i++) {
             cells[i].addEventListener('click', () => {
+                console.log(symbol)
                 // Checkin if the cell is empty
                 // Get the child nodes of divBoard and check if the contain span
                 let hasSpan = Array.from(cells[i].childNodes).some(node => node.nodeName === 'SPAN');
-                if (!(hasSpan) && GameController.verification(i, 'X')) {
-                    addSpan(cells[i]);
+                if (!(hasSpan) && GameController.verification(i, symbol)) {
+                    addSpan(cells[i], symbol);
                 }
             });
         }
     }
 
-    const addSpan = (cell) => {
+    const addSpan = (cell, symbol) => {
         let span = document.createElement('span');
-        span.textContent = 'X';
+        span.textContent = symbol;
         cell.appendChild(span);
     }
 
-    return { divSquare, clickCell };
-})();
+    const startGame = () => {
+        GameController.getPlayer((player) => {
+            if (player === undefined) {
+                console.log('choose a player');
+            } else {
+                gameStarted = true;
+                clickCell(player.symbol)
+            }
+        });
+    }
 
-GameController.getPlayer();
+    return { startGame, divSquare, clickCell };
+})();
+Display.startGame();
