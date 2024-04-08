@@ -38,33 +38,36 @@ const GameController = (() => {
     const getPlayer = (callback) => {
         const playerOne = document.getElementById('player1');
         const playerTwo = document.getElementById('player2');
+        const divPlayers = document.querySelector('.players');
 
         playerOne.addEventListener('click', () => {
             currentPlayer = player1;
             callback(currentPlayer)
+            divPlayers.style.display = 'none';
         });
 
         playerTwo.addEventListener('click', () => {
             currentPlayer = player2;
             callback(currentPlayer)
+            divPlayers.style.display = 'none';
         });
 
     }
 
+    const switchPlayer = () => {
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
+        return currentPlayer;
+    }
+
     const winConditions = [
-        // Winning combinations by rows
-        [0, 1, 2], // First row
-        [3, 4, 5], // Second row
-        [6, 7, 8], // Third row
-
-        // Winning combinations by columns
-        [0, 3, 6], // First column
-        [1, 4, 7], // Second column
-        [2, 5, 8], // Third row
-
-        // Winning combinations by diagonals
-        [0, 4, 8], // Main diagonal
-        [2, 4, 6] // Secondary diagonal
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
     ];
 
     const verification = (index, symbol) => {
@@ -87,16 +90,15 @@ const GameController = (() => {
         }
     }
  
-    return { getPlayer, verification, checkWin };
+    return { getPlayer, switchPlayer, verification, checkWin };
 })();
 
 const Display = (() => {
     const board = GameBoard.getBoard();
     const divBoard = document.querySelector('.divBoard');
-    let gameStarted = false;
+    let squares = [];
 
     const divSquare = () => {
-        let squares = [];
         board.forEach(() => {
             let square = document.createElement('div');
             square.classList.add('square');
@@ -106,21 +108,16 @@ const Display = (() => {
         return squares;
     }
 
-    const clickCell = (symbol) => {
-        
-        if (!gameStarted) {
-            return; 
-        }
-
-        let cells = divSquare();
-        for (let i = 0; i < cells.length; i++) {
-            cells[i].addEventListener('click', () => {
-                console.log(symbol)
+    const clickCell = () => {
+        let player = GameController.switchPlayer();
+        for (let i = 0; i < squares.length; i++) {
+            squares[i].addEventListener('click', () => {
+                player = GameController.switchPlayer();
                 // Checkin if the cell is empty
                 // Get the child nodes of divBoard and check if the contain span
-                let hasSpan = Array.from(cells[i].childNodes).some(node => node.nodeName === 'SPAN');
-                if (!(hasSpan) && GameController.verification(i, symbol)) {
-                    addSpan(cells[i], symbol);
+                let hasSpan = Array.from(squares[i].childNodes).some(node => node.nodeName === 'SPAN');
+                if (!(hasSpan) && GameController.verification(i, player.symbol)) {
+                    addSpan(squares[i], player.symbol);
                 }
             });
         }
@@ -133,16 +130,13 @@ const Display = (() => {
     }
 
     const startGame = () => {
-        GameController.getPlayer((player) => {
-            if (player === undefined) {
-                console.log('choose a player');
-            } else {
-                gameStarted = true;
-                clickCell(player.symbol)
-            }
+        GameController.getPlayer(() => {
+            divSquare();
+            clickCell()
         });
     }
 
     return { startGame, divSquare, clickCell };
 })();
+
 Display.startGame();
