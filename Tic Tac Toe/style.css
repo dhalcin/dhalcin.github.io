@@ -18,7 +18,7 @@ body {
 }
 
 .title {
-    margin: 50px;
+    margin: 60px;
 }
 
 h1 {
@@ -37,6 +37,7 @@ main {
 }
 
 .players {
+    margin-bottom: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,8 +64,8 @@ main {
 }
 
 .divBoard {
-    height: 100%;
-    width: 100%;
+    height: 68%;
+    width: 68%;
     background-color: rgba(0,0,0,0.4);
     box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
     display: grid;
@@ -72,6 +73,7 @@ main {
     align-items: center;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     gap: 3px;
+    display: none;
 }
 
 .square {
