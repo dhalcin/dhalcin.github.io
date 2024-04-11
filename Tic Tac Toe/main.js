@@ -107,6 +107,7 @@ const GameController = (() => {
 const Display = (() => {
     const board = GameBoard.getBoard();
     const divBoard = document.querySelector('.divBoard');
+    const restart = document.getElementById('Restart');
     let squares = [];
 
     const divSquare = () => {
@@ -148,10 +149,12 @@ const Display = (() => {
     const startGame = () => {
         GameController.getPlayer(() => {
             divBoard.style.display = 'grid';
+            restart.style.display = 'grid';
             divSquare();
             clickCell()
         });
     }
+    restart.addEventListener('click', () => location.reload());
 
     return { startGame, divSquare, clickCell };
 })();
