@@ -147,6 +147,7 @@ const Display = (() => {
 
     const startGame = () => {
         GameController.getPlayer(() => {
+            divBoard.style.display = 'grid';
             divSquare();
             clickCell()
         });
