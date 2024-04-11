@@ -80,14 +80,25 @@ const GameController = (() => {
 
     const checkWin = () => {
         let board = GameBoard.getBoard();
-        // Iterating ower the defined win conditions
+        let hasWinner = false;
         for (let i = 0; i < winConditions.length; i++) {
             let symbols = winConditions[i];
-            // Verifying if all symbols in the specified positions indicate that there is a winner
-            if (symbols.every(index => board[index].mark === 'X')) {
-                    console.log('Player 1 is winner');
+            let firstSymbol = symbols[0];
+            let cellSymbol = board[firstSymbol].mark;
+            if (symbols.every(index => board[index].mark === cellSymbol && cellSymbol !== '')) {
+                console.log(`Player winner is : ${cellSymbol}`);
+                hasWinner = true;
+                break;
             }
         }
+        if (!hasWinner) {
+            if (board.every(cell => cell.mark !== '')) {
+                console.log("It's a tie!");
+                return true;
+            }
+        }
+    
+        return hasWinner;
     }
  
     return { getPlayer, switchPlayer, verification, checkWin };
@@ -110,19 +121,24 @@ const Display = (() => {
 
     const clickCell = () => {
         let player = GameController.switchPlayer();
+        let flag = true;
         for (let i = 0; i < squares.length; i++) {
             squares[i].addEventListener('click', () => {
-                player = GameController.switchPlayer();
-                // Checkin if the cell is empty
-                // Get the child nodes of divBoard and check if the contain span
-                let hasSpan = Array.from(squares[i].childNodes).some(node => node.nodeName === 'SPAN');
-                if (!(hasSpan) && GameController.verification(i, player.symbol)) {
-                    addSpan(squares[i], player.symbol);
+                if (flag) {
+                    player = GameController.switchPlayer();
+                    // Checkin if the cell is empty
+                    // Get the child nodes of divBoard and check if the contain span
+                    let hasSpan = Array.from(squares[i].childNodes).some(node => node.nodeName === 'SPAN');
+                    if (!(hasSpan) && GameController.verification(i, player.symbol)) {
+                        addSpan(squares[i], player.symbol);
+                        if (GameController.checkWin()) {
+                            flag = false;
+                        }
+                    }
                 }
             });
         }
     }
-
     const addSpan = (cell, symbol) => {
         let span = document.createElement('span');
         span.textContent = symbol;
