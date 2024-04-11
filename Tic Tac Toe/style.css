@@ -105,3 +105,28 @@ main {
 #Restart:hover {
     background-color: #dc2626;
 }
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer > p {
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+a {
+    font-size: 2.3rem;
+    padding: 15px;
+    display: flex;
+}
+
+a:visited {
+    color: #0c0a09;
+}
+
+a:hover {
+    color: #0f172a;
+}
