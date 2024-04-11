@@ -36,6 +36,21 @@ main {
     gap: 15px;
 }
 
+.display {
+    margin-bottom: 20px;
+    width: 30%;
+    height: 3%;
+    font-size: 1.7rem;
+    display: flex;
+    justify-content: center;
+}
+
+.display > p {
+    font-family: "Fredoka", sans-serif;
+    color: #fef08a;
+}
+
+
 .players {
     margin-bottom: 150px;
     display: flex;
@@ -65,7 +80,7 @@ main {
 
 .divBoard {
     height: 68%;
-    width: 68%;
+    width: 50%;
     background-color: rgba(0,0,0,0.4);
     box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
     display: grid;
