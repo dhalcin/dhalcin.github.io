@@ -37,7 +37,7 @@ main {
 }
 
 .players {
-    margin-bottom: 100px;
+    margin-bottom: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,4 +89,19 @@ main {
 
 .square:hover {
     background-color: lightgray;
+}
+
+#Restart {
+    font-family: "Fredoka", sans-serif;
+    font-size: 1.7rem;
+    padding: 15px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    cursor: pointer;
+    display: none;
+}
+
+#Restart:hover {
+    background-color: #dc2626;
 }
