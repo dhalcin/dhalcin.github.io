@@ -31,8 +31,10 @@ const GameBoard = (() => {
 })();
 
 const GameController = (() => {
-    const player1 = Player('Player 1', 'X');
-    const player2 = Player('Player 2', 'O');
+    const player1 = Player('Player X', 'X');
+    const player2 = Player('Player O', 'O');
+    const displayDiv = document.querySelector('.display');
+    
     let currentPlayer;
 
     const getPlayer = (callback) => {
@@ -56,6 +58,9 @@ const GameController = (() => {
 
     const switchPlayer = () => {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
+        displayDiv.innerHTML = `<p>Turn : ${currentPlayer.symbol}</p>`
+        if (currentPlayer.symbol === 'O') displayDiv.innerHTML = `<p>This is : ${player1.name}'s turn!</p>`;
+        if (currentPlayer.symbol === 'X') displayDiv.innerHTML = `<p>This is : ${player2.name}'s turn!</p>`;
         return currentPlayer;
     }
 
@@ -86,14 +91,14 @@ const GameController = (() => {
             let firstSymbol = symbols[0];
             let cellSymbol = board[firstSymbol].mark;
             if (symbols.every(index => board[index].mark === cellSymbol && cellSymbol !== '')) {
-                console.log(`Player winner is : ${cellSymbol}`);
+                displayDiv.innerHTML = `<p>Player ${cellSymbol} won!</p>`;
                 hasWinner = true;
                 break;
             }
         }
         if (!hasWinner) {
             if (board.every(cell => cell.mark !== '')) {
-                console.log("It's a tie!");
+                displayDiv.innerHTML = `<p>This is a draw</p>`;
                 return true;
             }
         }
@@ -156,7 +161,7 @@ const Display = (() => {
     }
     restart.addEventListener('click', () => location.reload());
 
-    return { startGame, divSquare, clickCell };
+    return { startGame };
 })();
 
 Display.startGame();
