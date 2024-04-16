@@ -40,7 +40,7 @@ const GameController = (() => {
     const startGame = document.getElementById('startGame');
     const displayDiv = document.querySelector('.display');
 
-    
+    playerOne.focus();
     const getPlayer = (callback) => {
         startGame.addEventListener('click', e => {
             e.preventDefault();
