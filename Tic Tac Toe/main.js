@@ -23,7 +23,7 @@ const GameBoard = (() => {
 
     printBoard();
 
-    const updateBoard = (index, mark) => {
+    const updateBoard = (index, mark) => {  
         board[index] = { mark };
     }
 
@@ -31,29 +31,34 @@ const GameBoard = (() => {
 })();
 
 const GameController = (() => {
-    const player1 = Player('Player X', 'X');
-    const player2 = Player('Player O', 'O');
-    const displayDiv = document.querySelector('.display');
-    
+    let player1;
+    let player2;
     let currentPlayer;
+    const playerOne = document.getElementById('player1');
+    const playerTwo = document.getElementById('player2');
+    const players = document.querySelector('.players');
+    const startGame = document.getElementById('startGame');
+    const displayDiv = document.querySelector('.display');
 
+    
     const getPlayer = (callback) => {
-        const playerOne = document.getElementById('player1');
-        const playerTwo = document.getElementById('player2');
-        const divPlayers = document.querySelector('.players');
+        startGame.addEventListener('click', e => {
+            e.preventDefault();
+            players.style.display = 'none'
 
-        playerOne.addEventListener('click', () => {
+            player1 = getPlayerInfo(playerOne, 'X');
+            player2 = getPlayerInfo(playerTwo, 'O');
+
             currentPlayer = player1;
-            callback(currentPlayer)
-            divPlayers.style.display = 'none';
+            
+            callback();
         });
 
-        playerTwo.addEventListener('click', () => {
-            currentPlayer = player2;
-            callback(currentPlayer)
-            divPlayers.style.display = 'none';
-        });
+    }
 
+    const getPlayerInfo = (playerInput, symbol) => {
+        const playerName = playerInput.value !== '' ? playerInput.value : playerInput.placeholder;
+        return Player(playerName, symbol);
     }
 
     const switchPlayer = () => {
@@ -152,14 +157,16 @@ const Display = (() => {
     }
 
     const startGame = () => {
+    
         GameController.getPlayer(() => {
             divBoard.style.display = 'grid';
-            restart.style.display = 'grid';
+            restart.style.display = 'grid'
             divSquare();
-            clickCell()
-        });
+            clickCell();
+        })
     }
-    restart.addEventListener('click', () => location.reload());
+
+    restart.addEventListener('click', () => location.reload());    
 
     return { startGame };
 })();
