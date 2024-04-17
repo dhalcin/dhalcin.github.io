@@ -96,7 +96,8 @@ const GameController = (() => {
             let firstSymbol = symbols[0];
             let cellSymbol = board[firstSymbol].mark;
             if (symbols.every(index => board[index].mark === cellSymbol && cellSymbol !== '')) {
-                displayDiv.innerHTML = `<p>Player ${cellSymbol} won!</p>`;
+                cellSymbol = cellSymbol === 'X' ? player1 : player2;
+                displayDiv.innerHTML = `<p>Player ${cellSymbol.name} won!</p>`;
                 hasWinner = true;
                 break;
             }
