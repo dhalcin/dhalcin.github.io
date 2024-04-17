@@ -39,7 +39,7 @@ main {
 
 .display {
     margin-bottom: 20px;
-    width: 30%;
+    width: 50%;
     height: 3%;
     font-size: 1.7rem;
     display: flex;
@@ -151,7 +151,7 @@ footer {
     justify-content: space-between;
 }
 
-footer > p {
+.user {
     font-size: 1.5rem;
     text-align: right;
 }
@@ -169,3 +169,80 @@ a:visited {
 a:hover {
     color: #0f172a;
 }
+
+@media (max-width: 375px) {
+
+    .title {
+        margin: 20px;
+    }
+
+    main {
+        width: 95%;
+    }
+
+    .display {
+        width: 100%;
+    }
+
+    .players {
+        margin-top: 70px;
+    }
+
+    .player {
+        width: 80%;
+        font-size: 1rem;
+    }
+
+    #startGame {
+        font-size: 1rem;
+    }
+
+    .divBoard {
+        width: 95%;
+        height: 40%;
+    }
+
+    span {
+        font-size: 1.2rem;
+    }
+
+    #Restart {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+
+    .user {
+        font-size: 0.9rem;
+    }
+
+    a {
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 376px) and (max-width: 1120px) {
+
+    .title {
+        width: 100%;
+        text-align: center;
+    }
+
+    main {
+        width: 90%;
+        height: 90%;
+    }
+
+    .display {
+        width: 100%;
+    }
+
+    .divBoard {
+        width: 90%;
+        height: 50%;
+    }
+
+    #Restart {
+        font-size: 1.2rem;
+    }
+}
+
