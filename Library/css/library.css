@@ -148,78 +148,7 @@ label {
 
 .content {
     width: 100%;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 250px;
-    gap: 10px;
-}
-
-.contentBook {
-    border: none;
-    border-radius: 15px;
-    background-color: rgba(17, 26, 39, 0.95);
     display: flex;
-    flex-direction: column;
-    padding: 15px;
-    justify-content: center;
-}
-
-.book-container {
-    color: wheat;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.book-container > p {
-    font-size: 1.6rem;
-}
-
-.buttons-container {
-    height: 20%;
-    display: flex;
-    flex-direction: column;
-}
-
-.buttons-container > button {
-    cursor: pointer;
-    border: none;
-    outline: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-}
-
-.status {
-    width: 50%;
-    align-self: center;
-    justify-self: center;
-    font-size: 1rem;
-    background-color: #34d399;
-}
-
-.unread {
-    background-color: #f43f5e;
-}
-
-.delet {
-    width: 10%;
-    height: 70%;
-    align-self: end;
-    padding: 5px;
-    transition: background-color 0.3s ease-in-out, transform 0.5s ease-in-out;
-    transform: translate(0, 0);
-}
-
-.delet > img {
-    height: 20pt;
-}
-
-.delet:hover {
-    background-color: red;
 }
 
 footer {
