@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
     margin: 0px;
     padding: 0px;
@@ -10,6 +12,7 @@ body {
     display: grid;
     grid-template-rows: 0.5fr 2fr;
     gap: 10px;
+    background-color: #0F172A;
 }
 
 nav {
@@ -17,12 +20,20 @@ nav {
     display: grid;
     gap: 15px;
     grid-template-rows: 1fr 0.5fr;
+    background-color: #16213D;
 }
 
 .title {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+h1 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: wheat;
 }
 
 .contentNav {
@@ -65,21 +76,39 @@ li {
 }
 
 main {
-    background-color: #222023;
+    background-color: #0F172A; /*#222023; */
+    display: grid;
+    grid-template-columns: 2fr 0.5fr;
+    grid-template-rows: 1fr;
+    gap: 10px;
 }
 
 h2 {
     color: wheat;
 }
 
-.addTask {
-    
+.task {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 0.1fr 1fr;
+}
+
+.taskbtn {
+    background-color: #16213D;
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
 
 .tasks {
-    
+    background-color: #16213D;
 }
 
+
 .sidebar {
-   
+   background-color: #16213D;
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    padding: 15px;
 }
