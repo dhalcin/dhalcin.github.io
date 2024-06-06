@@ -64,5 +64,53 @@
             <button class="Addnotes">Notes +</button>
         </div>
       </main> 
+
+      <div class="modal">
+        <form action="">
+            <div class="title-form">
+                <p>Add Task</p>
+            </div>
+
+            <div class="group">
+                <label for="taskName">Task name
+                    <input type="text" id="taskName" placeholder="task name">
+                </label>
+            </div>
+
+            <div class="group">
+                <label for="description">Description
+                    <textarea name="" id="description" placeholder="Description task ...."></textarea>
+                </label>
+            </div>
+
+            <div class="group">
+                <label for="dueDate">¿Due Date?
+                    <input type="text" id="dueDate">
+                </label>
+            </div>
+
+            <div class="group">
+                <div class="title-priority">
+                    <p>Priority</p>
+                </div>
+
+                <label for="priority">Low
+                    <input type="checkbox" id="low">
+                </label>
+
+                <label for="medium">Medium
+                    <input type="checkbox" id="medium">
+                </label>
+
+                <label for="high">High
+                    <input type="checkbox" id="high">
+                </label>
+            </div>
+
+            <div class="button-form">
+                <button type="submit">Send</button>
+            </div>
+        </form>
+      </div>
 </body>
 </html>
