@@ -125,3 +125,24 @@ main {
     border: none;
     outline: 2px solid #d9f99d;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    outline: 2px solid black;
+}
+
+input {
+    border: none;
+    outline: 2px solid rebeccapurple;
+}
+
