@@ -15,8 +15,8 @@
             <button class="btn-nav" id="all">All Tasks</button>
         </div>
     
-        <div class="prioritys">
-            <button class="btn-nav" id="priority">Prioritys</button>
+        <div class="priority-nav">
+            <button class="btn-nav" id="btn-priority">Prioritys</button>
             <ol class="lt-priority">
                 <li>
                     <button class="btn-nav">Low</button>
@@ -45,11 +45,6 @@
     
           <div class="add">
             <button id="addBtn">Add Task</button>
-            <dialog id="dialog">
-                <form action="#">
-                    
-                </form>
-            </dialog>
           </div>
         </div>
     
@@ -67,26 +62,23 @@
 
       <div class="modal">
         <form action="">
+
+            <div class="group btn-form div-closed">
+                <button id="closed-btn">x</button>
+            </div>
+
             <div class="title-form">
-                <p>Add Task</p>
+                <p id="form-p">Add Task</p>
             </div>
 
             <div class="group">
-                <label for="taskName">Task name
-                    <input type="text" id="taskName" placeholder="task name">
-                </label>
+                <label for="taskName">Task name</label>
+                <input type="text" id="taskName" placeholder="task name">
             </div>
 
             <div class="group">
-                <label for="description">Description
-                    <textarea name="" id="description" placeholder="Description task ...."></textarea>
-                </label>
-            </div>
-
-            <div class="group">
-                <label for="dueDate">¿Due Date?
-                    <input type="text" id="dueDate">
-                </label>
+                <label for="dueDate">¿Due Date?</label>
+                <input type="text" id="dueDate">
             </div>
 
             <div class="group">
@@ -94,21 +86,33 @@
                     <p>Priority</p>
                 </div>
 
-                <label for="priority">Low
-                    <input type="checkbox" id="low">
-                </label>
+                <div id="prioritys">
+                    <div class="priority">
+                        <label for="low">Low</label>
+                        <input type="checkbox" id="low">
+                    </div>
+    
+                    <div class="priority">
+                        <label for="medium">Medium</label>
+                        <input type="checkbox" id="medium">
+                    </div>
+    
+                    <div class="priority">
+                        <label for="high">High</label>
+                        <input type="checkbox" id="high">
+                    </div>
+                </div>
 
-                <label for="medium">Medium
-                    <input type="checkbox" id="medium">
-                </label>
-
-                <label for="high">High
-                    <input type="checkbox" id="high">
-                </label>
             </div>
 
-            <div class="button-form">
-                <button type="submit">Send</button>
+            <div class="group" id="form-description">
+                <label for="description">Description
+                </label>
+                <textarea name="" id="description" placeholder="Description task ...."></textarea>
+            </div>
+
+            <div class="group div-open">
+                <button type="submit" id="save-btn" >Save Task</button>
             </div>
         </form>
       </div>
