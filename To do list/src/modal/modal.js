@@ -3,7 +3,11 @@ export default class Modal {
         this.modal = document.querySelector('.modal');
     }
 
-    getModal() {
+    openModal() {
         this.modal.style.display = 'flex';
+    }
+
+    closedModal() {
+        this.modal.style.display = 'none';
     }
 }
