@@ -91,21 +91,30 @@ main {
     background-color: #facc15;
 }
 
-#dialog {
-    background-color: red;
-    width: 200px;
-    height: 100px;
-}
-
 .tasks {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 200px;
-    gap: 10px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10px repeat(auto-fill, 100px);
+}
+
+.legend, .task {
+    display: grid;
+    gap: 5px;
+    justify-content: space-around;
+    grid-template-columns: 300px 500px repeat(4, 1fr);
+}
+
+.legend-div {
+    text-align: center;
 }
 
 .task {
-    outline: 1px solid red;
+    border-bottom: 1px solid red;
+    align-items: end;
+}
+
+.task-div {
+    text-align: center;
 }
 
 .notes {
