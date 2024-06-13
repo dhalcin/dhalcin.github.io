@@ -1,6 +1,8 @@
 import './style.css';
 import { format } from 'date-fns';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Button from './click/click';
+import DateModule from './date/date';
 
 const addBtn = document.getElementById('addBtn');
 const date = document.getElementById('dueDate');
@@ -16,3 +18,7 @@ closed.eventClick('closed')
 const saveBtn = document.getElementById('save-btn');
 const save = new Button(saveBtn);
 save.eventClick('save');
+
+const taskDate = document.querySelector('.task-duedate');
+const newDate = new DateModule();
+taskDate.textContent = `${format(newDate.date, 'dd-MM-yyyy')}`;
