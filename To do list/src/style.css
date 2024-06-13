@@ -100,8 +100,9 @@ main {
 .legend, .task {
     display: grid;
     gap: 5px;
-    justify-content: space-around;
-    grid-template-columns: 300px 500px repeat(4, 1fr);
+    align-items: center;
+    grid-template-columns: 2fr 5fr 1fr 2fr repeat(2, 1fr);
+    padding: 10px;
 }
 
 .legend-div {
@@ -115,6 +116,16 @@ main {
 
 .task-div {
     text-align: center;
+}
+
+.task-priority {
+    outline: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+
+    justify-self: center;
+    background-color: transparent;
 }
 
 .notes {
