@@ -115,9 +115,6 @@ main {
 .task {
     border-bottom: 2px solid #facc15;
     align-items: end;
-}
-
-.task-div {
     text-align: center;
 }
 
@@ -131,7 +128,7 @@ h3, .text-legend, .text-description {
     background-color: transparent;
 }
 
-.bi {
+i {
     font-size: 1.5rem;
 }
 
