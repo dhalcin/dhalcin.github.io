@@ -5,6 +5,7 @@ export default class Button {
     constructor(button) {
         this.button = button;
         this.modal = new Modal();
+        this.task = new AddTask();
     }
 
     eventClick(btn) {
@@ -12,17 +13,15 @@ export default class Button {
             e.preventDefault();
             switch (btn) {
                 case 'add':
-                    console.log('add');
                     this.modal.openModal();
                     break;
                 
                 case 'closed':
-                    console.log('closed');
                     this.modal.closedModal();
                     break;
 
                 case 'save':
-                    console.log('save form');
+                    this.task.addDiv();
                     this.modal.closedModal();
                     break;
 
