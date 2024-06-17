@@ -21,8 +21,7 @@ export default class Button {
                     break;
 
                 case 'save':
-                    this.task.addDiv();
-                    this.modal.closedModal();
+                    if (this.task.addDiv()) this.modal.closedModal();
                     break;
 
                 default:
