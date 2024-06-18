@@ -13,6 +13,10 @@ export default class Event {
         this.modal.closedModal();
     }
 
+    verification() {
+        if (this.task.addDiv()) return true;
+    }
+
     eventHandler(btn) {
         this.button.addEventListener('click', e => {
             e.preventDefault();
@@ -21,6 +25,7 @@ export default class Event {
                     this.modal.openModal();
                     document.addEventListener('keydown', e => {
                         if (e.key === 'Escape') this.clearClosed();
+                        if (e.key === 'Enter' && this.verification()) this.modal.closedModal();
                     })
 
                     document.addEventListener('click', e => {
@@ -34,7 +39,7 @@ export default class Event {
                     break;
 
                 case 'save':
-                    if (this.task.addDiv()) this.modal.closedModal();
+                    if (this.verification()) this.modal.closedModal();
                     break;
 
                 default:
