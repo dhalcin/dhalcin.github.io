@@ -62,10 +62,16 @@ export default class AddTask {
         const lastTask = this.container.lastElementChild;
         const lastChild = lastTask.children;
 
-        lastChild[0].textContent = this.taskName.value;
-        lastChild[1].classList.add('text-description');
-        lastChild[1].textContent = this.description.value;
+        const h3 = document.createElement('h3');
+        h3.textContent = this.taskName.value;
+        lastChild[0].appendChild(h3);
+
+        const p = document.createElement('p');
+        p.classList.add('text-description');
+        p.textContent = this.description.value;
         
+        lastChild[1].appendChild(p);
+
         this.setPriority(lastChild);
         lastChild[3].textContent = this.dueDate.value;
 
