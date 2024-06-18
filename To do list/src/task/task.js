@@ -44,6 +44,10 @@ export default class AddTask {
         }
     }
 
+    resetForm() {
+        this.taskName.value = '';
+        this.description.value = '';
+    }
 
     addDiv() {
         if (!this.validateInputs()) {
@@ -71,8 +75,7 @@ export default class AddTask {
         const btnTrash = this.createButton('bi-trash3');
         lastChild[5].appendChild(btnTrash);
 
-        this.taskName.value = '';
-        this.description.value = '';
+        this.resetForm();
         return true;
     }
 }
