@@ -1,11 +1,15 @@
-import AddTask from "../task/task";
 import Modal from "../modal/modal";
+import AddTask from "../task/task";
 
-export default class Event {
-    constructor(button) {
-        this.button = button;
+export default class Events {
+    constructor() {
         this.modal = new Modal();
-        this.task = new AddTask();
+        this.task = new AddTask();;
+    }
+
+    // Method to verify if the task can be added successfully
+    verification() {
+        return this.task.addDiv();
     }
 
     clearClosed() {
@@ -13,39 +17,34 @@ export default class Event {
         this.modal.closedModal();
     }
 
-    verification() {
-        if (this.task.addDiv()) return true;
+    click() {
+        document.addEventListener('click', e => {
+            e.preventDefault();
+            let element = e.target;
+
+            if (element.id === 'addBtn') {
+                this.modal.openModal();
+                this.keys();
+            }
+
+            if (element.id === 'closed-btn') this.clearClosed();
+
+            // Save task and close modal when the save button is clicked, if verification is successful
+            if (element.id === 'save-btn' && this.verification()) this.modal.closedModal();
+
+            // Close modal when clicking outside the modal content
+            // `this.modal.modal` refers to the modal element select in the Modal class constructor
+            if (element === this.modal.modal) this.clearClosed();
+
+        });
     }
 
-    eventHandler(btn) {
-        this.button.addEventListener('click', e => {
-            e.preventDefault();
-            switch (btn) {
-                case 'add':
-                    this.modal.openModal();
-                    document.addEventListener('keydown', e => {
-                        if (e.key === 'Escape') this.clearClosed();
-                        if (e.key === 'Enter' && this.verification()) this.modal.closedModal();
-                    })
+    keys() {
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') this.clearClosed();
 
-                    document.addEventListener('click', e => {
-                        if (e.target === document.querySelector('.modal')) this.clearClosed();
-                    })
-
-                    break;
-                
-                case 'closed':
-                    this.clearClosed();
-                    break;
-
-                case 'save':
-                    if (this.verification()) this.modal.closedModal();
-                    break;
-
-                default:
-                    break;
-            }
-        })
-
+            // Save task and close modal when Enter key is pressed, if verification is successful
+            if (e.key === 'Enter' && this.verification()) this.modal.closedModal();
+        });
     }
 }
