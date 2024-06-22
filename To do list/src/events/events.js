@@ -1,10 +1,11 @@
 import Modal from "../modal/modal";
 import AddTask from "../task/task";
+import Special from "../specialButtons/special";
 
 export default class Events {
     constructor() {
         this.modal = new Modal();
-        this.task = new AddTask();;
+        this.task = new AddTask();
     }
 
     // Method to verify if the task can be added successfully
@@ -20,12 +21,13 @@ export default class Events {
     click() {
         document.addEventListener('click', e => {
             e.preventDefault();
+            
+            this.keys();
+            
             let element = e.target;
+            const special = new Special(element);
 
-            if (element.id === 'addBtn') {
-                this.modal.openModal();
-                this.keys();
-            }
+            if (element.id === 'addBtn') this.modal.openModal();
 
             if (element.id === 'closed-btn') this.clearClosed();
 
@@ -34,7 +36,18 @@ export default class Events {
 
             // Close modal when clicking outside the modal content
             // `this.modal.modal` refers to the modal element select in the Modal class constructor
-            if (element === this.modal.modal) this.clearClosed();
+            if (element === this.modal.modal) return this.clearClosed();
+            
+            // Check if the clicked element is the edit button (pencil icon)
+            if ((element.classList).contains('bi-pencil')) {
+                this.modal.openModal();
+                special.edit();
+            }
+
+            // Check in the clicked element is delete button (trash icon)
+            if (element.classList.contains('bi-trash3')) {
+                special.trash();
+            }
 
         });
     }
