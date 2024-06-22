@@ -27,6 +27,7 @@ export default class AddTask {
     createTaskDiv(task) {
         for (let e = 0; e < 6; e++) {
             const taskDiv = document.createElement('div');
+            taskDiv.classList.add('task-div')
             task.appendChild(taskDiv);
         }
     }
@@ -49,6 +50,10 @@ export default class AddTask {
         this.description.value = '';
     }
 
+    getTex() {
+        this.p = document.querySelector('.text-description');
+    }
+
     addDiv() {
         if (!this.validateInputs()) {
             return false;
@@ -64,6 +69,7 @@ export default class AddTask {
 
         const h3 = document.createElement('h3');
         h3.textContent = this.taskName.value;
+        lastChild[0].classList.add('task-name');
         lastChild[0].appendChild(h3);
 
         const p = document.createElement('p');
