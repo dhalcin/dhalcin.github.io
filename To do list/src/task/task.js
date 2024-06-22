@@ -43,7 +43,7 @@ export default class AddTask {
                 lastChild[2].appendChild(priorityButton);
             }
         }
-    }
+    } 
 
     resetForm() {
         this.taskName.value = '';
