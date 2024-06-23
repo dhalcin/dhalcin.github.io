@@ -33,13 +33,37 @@ export default class AddTask {
     }
 
     setPriority(lastChild) {
+
         for (let element of this.inpts) {
             if (element.checked) {
                 let color;
-                if (element.id === 'low') color = 'yellow';
-                if (element.id === 'medium') color = 'blue';
-                if (element.id === 'high') color = 'red';
+                let priority;
+
+                // Depending on the `id` of the `input` it is assigned to the variable `priority`
+                switch (element.id) {
+                    case 'low':
+                        color = 'yellow';
+                        priority = 'low';
+                        break;
+                    
+                    case 'medium':
+                        color = 'blue';
+                        priority = 'medium';
+                        break;
+                    
+                    case 'high':
+                        color = 'red';
+                        priority = 'high';
+                        break;
+                    
+                    default:
+                        break;
+                }
+
                 const priorityButton = this.createButton('bi-circle', color);
+
+                // The element `i` is obtained and `dataset` is assigned based on the variable priority
+                priorityButton.querySelector('i').dataset.priority = priority;
                 lastChild[2].appendChild(priorityButton);
             }
         }
@@ -48,10 +72,12 @@ export default class AddTask {
     resetForm() {
         this.taskName.value = '';
         this.description.value = '';
-    }
 
-    getTex() {
-        this.p = document.querySelector('.text-description');
+        // Assings task priority (modal) to default values
+        for (let radio of this.inpts) {
+            if (radio.id === 'low') radio.checked = true;
+            else radio.checked = false;
+        }
     }
 
     addDiv() {
