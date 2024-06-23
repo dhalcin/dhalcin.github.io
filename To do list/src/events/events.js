@@ -1,11 +1,13 @@
 import Modal from "../modal/modal";
 import AddTask from "../task/task";
 import Special from "../specialButtons/special";
+import DateModule from "../date/date";
 
 export default class Events {
     constructor() {
         this.modal = new Modal();
         this.task = new AddTask();
+        this.date = new DateModule();
     }
 
     // Method to verify if the task can be added successfully
@@ -29,13 +31,28 @@ export default class Events {
             let element = e.target;
             const special = new Special(element);
 
-            if (element.id === 'addBtn') this.modal.openModal();
+            switch (element.id) {
+                case 'addBtn':
+                    this.modal.openModal();
+                    break;
+                
+                case 'closed-btn':
+                    this.clearClosed();
+                    break;
+                
+                case 'dueDate':
+                    this.date.show();
+                    break;
+                
+                // Save task and close modal when the save button is clicked, if verification is successful
+                case 'save-btn':
+                    if (this.verification()) this.modal.closedModal();
+                    break;
 
-            if (element.id === 'closed-btn') this.clearClosed();
-
-            // Save task and close modal when the save button is clicked, if verification is successful
-            if (element.id === 'save-btn' && this.verification()) this.modal.closedModal();
-
+                default:
+                    break;
+            }
+            
             // Close modal when clicking outside the modal content
             // `this.modal.modal` refers to the modal element select in the Modal class constructor
             if (element === this.modal.modal) return this.clearClosed();
