@@ -20,7 +20,9 @@ export default class Events {
 
     click() {
         document.addEventListener('click', e => {
-            e.preventDefault();
+            
+            // Check if the target element is not radio type input
+            if (e.target.type !== 'radio') e.preventDefault();
             
             this.keys();
             
@@ -41,7 +43,10 @@ export default class Events {
             // Check if the clicked element is the edit button (pencil icon)
             if ((element.classList).contains('bi-pencil')) {
                 this.modal.openModal();
-                special.edit();
+
+                // Entering as arguments the name of the task, the description and the priority of the task.
+                special.edit(this.task.taskName, this.task.description, this.task.inpts);
+                
             }
 
             // Check in the clicked element is delete button (trash icon)
