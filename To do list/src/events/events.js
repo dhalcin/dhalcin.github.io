@@ -6,8 +6,8 @@ import DateModule from "../date/date";
 export default class Events {
     constructor() {
         this.modal = new Modal();
-        this.task = new AddTask();
         this.date = new DateModule();
+        this.task = new AddTask(this.date);
     }
 
     // Method to verify if the task can be added successfully
@@ -29,7 +29,9 @@ export default class Events {
             this.keys();
             
             let element = e.target;
-            const special = new Special(element);
+            
+            // Entering 'Special' constructor properties: Task container and DateModule class (this.date)
+            const special = new Special(element, this.date);
 
             switch (element.id) {
                 case 'addBtn':
@@ -61,8 +63,8 @@ export default class Events {
             if ((element.classList).contains('bi-pencil')) {
                 this.modal.openModal();
 
-                // Entering as arguments the name of the task, the description and the priority of the task.
-                special.edit(this.task.taskName, this.task.description, this.task.inpts);
+                // Entering the arguments task name, task description, task date, task priority
+                special.edit(this.task.taskName, this.task.description, this.task.dueDate, this.task.inpts);
                 
             }
 
