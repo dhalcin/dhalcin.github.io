@@ -1,10 +1,18 @@
+import DateModule from "../date/date";
+
 export default class AddTask {
-    constructor() {
+    constructor(dateModule) {
         this.container = document.querySelector('.tasks');
+
+        // * Modal
         this.taskName = document.getElementById('taskName');
         this.dueDate = document.getElementById('dueDate');
         this.inpts = document.querySelectorAll('.inpt-priority');
         this.description = document.getElementById('description');
+        // * Modal
+
+        // Get methods from DateModule class
+        this.dateModule = dateModule;
     }
 
     validateInputs() {
@@ -74,10 +82,10 @@ export default class AddTask {
         this.description.value = '';
 
         // Assings task priority (modal) to default values
-        for (let radio of this.inpts) {
-            if (radio.id === 'low') radio.checked = true;
-            else radio.checked = false;
-        }
+        this.inpts[0].checked = true;
+
+        // Get the value of 'input' in correct format
+        this.dueDate.value = this.dateModule.dateIso();
     }
 
     addDiv() {
@@ -105,7 +113,12 @@ export default class AddTask {
         lastChild[1].appendChild(p);
 
         this.setPriority(lastChild);
-        lastChild[3].textContent = this.dueDate.value;
+        const span = document.createElement('span');
+        span.classList.add('task-duedate');
+        
+        // The content of the 'span' in an appropriate format
+        span.textContent = this.dateModule.formatIso(this.dueDate);
+        lastChild[3].appendChild(span);
 
         const btnPencil = this.createButton('bi-pencil');
         lastChild[4].appendChild(btnPencil);
