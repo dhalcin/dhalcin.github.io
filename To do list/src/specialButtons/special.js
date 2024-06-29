@@ -5,24 +5,30 @@ export default class Special {
     constructor(element, date) {
         this.date = date;
         this.container = element.closest('.task');
+
+        // It is initialized as 'null' to be able to obtain the target of the events in 'Events'
+        this.taskName = null;
+        this.taskDate = null;
+        this.priorityIcon = null;
+        this.taskDescription = null;
     }
 
     edit(nameInput, descriptionInput, dateInpt, prioritysInpt) {
         // Get the task name element within the task container
-        const taskName = this.container.querySelector('.task-name h3');
+        this.taskName = this.container.querySelector('.task-name h3');
 
-        nameInput.value = taskName.textContent;
+        nameInput.value = this.taskName.textContent;
 
-        const taskDate = this.container.querySelector('.task-duedate');
+        this.taskDate = this.container.querySelector('.task-duedate');
 
         // Get the date of the task, giving it a correct format and adding it to the modal
-        dateInpt.value = this.date.ParseIso(taskDate.textContent);
+        dateInpt.value = this.date.ParseIso(this.taskDate.textContent);
 
         // Get the `i` element representing the task priority within the task container
-        const priorityIcon = this.container.querySelector('.bi-circle');
+        this.priorityIcon = this.container.querySelector('.bi-circle');
 
         // Retrieve the `dataset` from the `i` element
-        const priority = priorityIcon.dataset.priority;
+        const priority = this.priorityIcon.dataset.priority;
         
         if (priority === 'low') prioritysInpt[0].checked = true;
 
@@ -31,9 +37,9 @@ export default class Special {
         if (priority === 'high') prioritysInpt[2].checked = true;
 
         // Get the task description element within the task container
-        const taskDescription = this.container.querySelector('.text-description');
+        this.taskDescription = this.container.querySelector('.text-description');
         
-        descriptionInput.value = taskDescription.textContent;
+        descriptionInput.value = this.taskDescription.textContent;
 
     }
 
