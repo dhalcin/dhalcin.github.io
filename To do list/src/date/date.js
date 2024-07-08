@@ -1,4 +1,4 @@
-import { format, parseISO, parse } from 'date-fns';
+import { format, parseISO, parse, max } from 'date-fns';
 
 export default class DateModule {
     constructor() {
@@ -7,7 +7,6 @@ export default class DateModule {
         this.defaultTask.textContent = this.currentDate();
         this.inptDate = document.getElementById('dueDate');
         this.inptDate.value = this.dateIso();
-
     }
 
     currentDate() {
@@ -30,7 +29,6 @@ export default class DateModule {
     }
 
     ParseIso(string) {
-
         // Convert a 'textContent' to a date
         const date = parse(string, 'dd-MM-yyyy', this.date);
 
@@ -39,4 +37,21 @@ export default class DateModule {
         return isoDate;
     }
 
+    compareDates(taskDates) {
+
+        // Obtaining the list of all tasks
+        const dates = taskDates;
+
+        let datesList = [this.currentDate()];
+
+        // Conversion of the task dates (string) to the format "Date"
+        for (let i in dates) {
+            const convert = parse(dates[i], 'dd-MM-yyyy', this.currentDate());
+            datesList.push(convert);
+        }
+        
+        // Rerturning the last of the dates
+        const result = max(datesList);
+        console.log(format(result, 'dd-MM-yyyy'));
+    }
 }
