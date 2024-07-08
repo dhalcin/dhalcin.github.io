@@ -77,6 +77,22 @@ export default class AddTask {
         }
     } 
 
+
+    taskLocation() {
+
+        // Obtain all tasks
+        const tasks = document.querySelectorAll('.task');
+
+        let dates = [];
+
+        // Obtaining all task dates
+        tasks.forEach(element => {
+            const taskDate = element.querySelector('.task-duedate').textContent;
+            dates.push(taskDate);
+        });
+        this.dateModule.compareDates(dates);
+    }
+
     resetForm() {
         this.taskName.value = '';
         this.description.value = '';
@@ -88,7 +104,7 @@ export default class AddTask {
         this.dueDate.value = this.dateModule.dateIso();
     }
 
-    addDiv() {
+    addTask() {
         if (!this.validateInputs()) {
             return false;
         }
@@ -127,6 +143,7 @@ export default class AddTask {
         lastChild[5].appendChild(btnTrash);
 
         this.resetForm();
+        this.taskLoction();
         return true;
     }
 }
