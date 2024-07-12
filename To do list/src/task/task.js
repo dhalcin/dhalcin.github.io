@@ -81,17 +81,34 @@ export default class AddTask {
     taskLocation() {
 
         // Obtain all tasks
-        const tasks = document.querySelectorAll('.task');
-
-        let dates = [];
+        const tasks = Array.from(this.container.querySelectorAll('.task'));
 
         // Obtaining all task dates
-        tasks.forEach(element => {
-            const taskDate = element.querySelector('.task-duedate').textContent;
-            dates.push(taskDate);
+        let taskDatePairs = tasks.map(task => {
+            const taskDateText = task.querySelector('.task-duedate').textContent;
+            return { taskDateText, task  };
         });
-        this.dateModule.compareDates(dates);
-    }
+        
+        // Entering the date list
+        const sortedDates = this.dateModule.compareDates(taskDatePairs.map(pair => pair.taskDateText));
+        
+        // Reorder task elements in the DOM based on the obtained ordered dates
+        const sortedTask = sortedDates.map(date => {
+            return taskDatePairs.find(pair => pair.taskDateText === date).task;
+        });
+
+        // Removed child elements of "this.container" execpt "div.legend"
+        while (this.container.children.length > 1) {
+            this.container.removeChild(this.container.lastChild);
+        }
+
+        // Adding tasks to the DOM based on the dates obtained (sortedTask)
+        sortedTask.forEach(task => {
+            this.container.appendChild(task);
+        });
+
+      }
+
 
     resetForm() {
         this.taskName.value = '';
@@ -143,7 +160,7 @@ export default class AddTask {
         lastChild[5].appendChild(btnTrash);
 
         this.resetForm();
-        this.taskLoction();
+        this.taskLocation();
         return true;
     }
 }
