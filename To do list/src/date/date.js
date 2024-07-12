@@ -1,4 +1,4 @@
-import { format, parseISO, parse, max } from 'date-fns';
+import { format, parseISO, parse, max, compareAsc } from 'date-fns';
 
 export default class DateModule {
     constructor() {
@@ -40,18 +40,10 @@ export default class DateModule {
     compareDates(taskDates) {
 
         // Obtaining the list of all tasks
-        const dates = taskDates;
+        // Converting dates(string) into Date format
+        let dateList = taskDates.map(date => parse(date, 'dd-MM-yyyy', this.date));
+        dateList.sort(compareAsc);
+        return dateList.map(date => format(date, 'dd-MM-yyyy'));
 
-        let datesList = [this.currentDate()];
-
-        // Conversion of the task dates (string) to the format "Date"
-        for (let i in dates) {
-            const convert = parse(dates[i], 'dd-MM-yyyy', this.currentDate());
-            datesList.push(convert);
-        }
-        
-        // Rerturning the last of the dates
-        const result = max(datesList);
-        console.log(format(result, 'dd-MM-yyyy'));
     }
 }
