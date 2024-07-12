@@ -16,7 +16,7 @@ export default class Events {
 
     // Method to verify if the task can be added successfully
     verification() {
-        return this.task.addDiv();
+        return this.task.addTask();
     }
 
     clearClosed() {
