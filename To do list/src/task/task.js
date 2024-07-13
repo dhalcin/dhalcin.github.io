@@ -92,10 +92,13 @@ export default class AddTask {
         // Entering the date list
         const sortedDates = this.dateModule.compareDates(taskDatePairs.map(pair => pair.taskDateText));
         
+        let sortedTasks = [];
+
         // Reorder task elements in the DOM based on the obtained ordered dates
-        const sortedTask = sortedDates.map(date => {
-            return taskDatePairs.find(pair => pair.taskDateText === date).task;
-        });
+        sortedDates.forEach(date => {
+            const taskWithSameDate = taskDatePairs.filter(pair => pair.taskDateText === date).map(pair => pair.task);
+            sortedTasks = sortedTasks.concat(taskWithSameDate);
+        })
 
         // Removed child elements of "this.container" execpt "div.legend"
         while (this.container.children.length > 1) {
@@ -103,7 +106,7 @@ export default class AddTask {
         }
 
         // Adding tasks to the DOM based on the dates obtained (sortedTask)
-        sortedTask.forEach(task => {
+        sortedTasks.forEach(task => {
             this.container.appendChild(task);
         });
 
