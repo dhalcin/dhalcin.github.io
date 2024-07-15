@@ -1,4 +1,4 @@
-import { format, parseISO, parse, max, compareAsc } from 'date-fns';
+import { format, parseISO, parse, compareAsc } from 'date-fns';
 
 export default class DateModule {
     constructor() {
@@ -19,6 +19,7 @@ export default class DateModule {
     }
 
     show() {
+        this.inptDate.min = this.inptDate.value;
         return this.inptDate.showPicker();
     }
 
@@ -37,8 +38,7 @@ export default class DateModule {
         return isoDate;
     }
 
-    compareDates(taskDates) {
-
+    compareTaskDates(taskDates) {
         // Obtaining the list of all tasks
         // Converting dates(string) into Date format
         let dateList = taskDates.map(date => parse(date, 'dd-MM-yyyy', this.date));
