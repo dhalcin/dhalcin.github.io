@@ -90,7 +90,7 @@ export default class AddTask {
         });
         
         // Entering the date list
-        const sortedDates = this.dateModule.compareDates(taskDatePairs.map(pair => pair.taskDateText));
+        const sortedDates = this.dateModule.compareTaskDates(taskDatePairs.map(pair => pair.taskDateText));
         
         let sortedTasks = [];
 
