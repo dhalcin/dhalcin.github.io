@@ -2,6 +2,7 @@ import Modal from "../modal/modal";
 import AddTask from "../task/task";
 import Special from "../specialButtons/special";
 import DateModule from "../date/date";
+import Notes from "../notes/notes";
 
 export default class Events {
     constructor() {
@@ -12,6 +13,7 @@ export default class Events {
         
         // Setting a flag
         this.flag = null;
+        this.notes = new Notes();
     }
 
     // Method to verify if the task can be added successfully
@@ -60,6 +62,18 @@ export default class Events {
                     }
 
                     if (this.verification()) this.modal.closedModal();
+                    break;
+                    
+                case 'add-notes':
+                    this.notes.openNote();
+                    break;
+                
+                case 'add-note':
+                    this.notes.addNote();
+                    break;
+                
+                case 'discard':
+                    this.notes.discardNote();
                     break;
 
                 default:
