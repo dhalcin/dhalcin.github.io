@@ -10,10 +10,11 @@ export default class Events {
         this.date = new DateModule();
         this.task = new AddTask(this.date);
         this.special = null;
-        
+        this.notes = null;
+
         // Setting a flag
-        this.flag = null;
-        this.notes = new Notes();
+        this.flagSpecial = null;
+        this.flagNote = null;
     }
 
     // Method to verify if the task can be added successfully
@@ -53,27 +54,30 @@ export default class Events {
                 case 'save-btn':
 
                     // Get the true os 'flag' and add edits to the current task, using 'trash()' and immediately adding the new 'edited task'
-                    if (this.flag && this.verification()) {
+                    if (this.flagSpecial && this.verification()) {
 
                         // Since there is already an instance of 'Special' you can use 'trash()'
                         this.special.trash();
                         this.modal.closedModal();
-                        this.flag = null;
+                        this.flagSpecial = null;
                     }
 
                     if (this.verification()) this.modal.closedModal();
                     break;
                     
                 case 'add-notes':
-                    this.notes.openNote();
+                    this.notes = new Notes();
+                    if (!this.flagNote) this.flagNote = this.notes.openNote();
                     break;
                 
                 case 'add-note':
                     this.notes.addNote();
+                    this.flagNote = null;
                     break;
                 
                 case 'discard':
                     this.notes.discardNote();
+                    this.flagNote = null;
                     break;
 
                 default:
@@ -93,7 +97,7 @@ export default class Events {
 
                 // Entering the arguments task name, task description, task date, task priority
                 this.special.edit(this.task.taskName, this.task.description, this.task.dueDate, this.task.inpts);
-                this.flag = true;
+                this.flagSpecial = true;
                 
             }
 
@@ -101,6 +105,10 @@ export default class Events {
             if (element.classList.contains('bi-trash3')) {
                 const special = new Special(element, this.date);
                 special.trash();
+            }
+
+            if (element.classList.contains('bi-trash2')) {
+                this.notes.removeNotes(element);
             }
 
         });
