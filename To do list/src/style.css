@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
-
 * {
     margin: 0px;
     padding: 0px;
@@ -145,6 +144,9 @@ i {
     background-color: #0F172A;
     text-align: center;
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 #add-notes {
@@ -157,6 +159,59 @@ i {
     border-radius: 20px; 
     border: none;
     outline: 2px solid #d9f99d;
+}
+
+.div-note {
+    display: flex;
+    gap: 5px;
+}
+
+.text-note {
+    outline: none;
+    border-radius: 10px;
+    border: none;
+    padding: 15px;
+    font-size: 1rem;
+    max-width: 300px;
+    max-height: 100px;
+    resize: none;
+    font-family: "Roboto Slab", serif;
+    color: #3b82f6;
+}
+
+.bi-check2, .bi-file-minus {
+    color: wheat;
+    align-self: center;
+}
+
+.contentNote {
+    margin: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.note {
+    color: white;
+    font-size: 1rem;
+    font-family: "Roboto Slab", serif;
+}
+
+.bi-trash2 {
+    color: transparent;
+}
+
+.note:active + .bi-trash2  {
+    color: red;
+}
+
+.note:hover + .bi-trash2 {
+    color: red;
+}
+
+.bi-trash2:hover {
+    color: red;
 }
 
 
