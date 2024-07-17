@@ -2,6 +2,7 @@ export default class Notes {
     constructor() {
         this.divNotes = document.querySelector('.notes');
         this.flag = false;
+        this.contentNote = null;
     }
 
     createElement(element, classElement, pater) {
@@ -30,6 +31,7 @@ export default class Notes {
 
     openNote() {
         if (this.flag === false) this.divNote();
+        return true;
     }
 
     discardNote() {
@@ -39,16 +41,20 @@ export default class Notes {
 
     addNote() {
         if (this.textarea.value !== '') {
-            const contentNote = this.createElement('div', 'contentNote', this.divNotes);
-            const note = this.createElement('p', 'note', contentNote)
+            this.contentNote = this.createElement('div', 'contentNote', this.divNotes);
+            const note = this.createElement('p', 'note', this.contentNote)
             note.textContent = this.textarea.value;
             
-            const btnRemove = this.createElement('i', 'bi-trash2', contentNote);
-            btnRemove.id = 'btnRemove';
+            const btnRemove = this.createElement('i', 'bi-trash2', this.contentNote);
 
             this.flag = false;
             this.div.remove();
         }         
+    }
+
+    removeNotes(element) {
+        const pater = element.parentNode;
+        pater.remove();
     }
 
 }
