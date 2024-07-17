@@ -14,12 +14,15 @@ export default class Notes {
     divNote() {
         this.div = this.createElement('div', 'div-note', this.divNotes);
         this.textarea = this.createElement('textarea', 'text-note', this.div);
-        const add = this.createElement('button', 'add-note', this.div)
-        add.textContent = '+';
+        this.textarea.placeholder = 'Enter a note ....';
+        this.textarea.rows = "13";
+        this.textarea.cols = "25";
+        this.textarea.setAttribute('maxlength', '100');
+
+        const add = this.createElement('i', 'bi-check2', this.div)
         add.id = 'add-note';
 
-        const discard = this.createElement('button', 'discard', this.div)
-        discard.textContent = 'x';
+        const discard = this.createElement('i', 'bi-file-minus', this.div)
         discard.id = 'discard';
 
         this.flag = true;
@@ -40,10 +43,10 @@ export default class Notes {
             const note = this.createElement('p', 'note', contentNote)
             note.textContent = this.textarea.value;
             
-            const btnRemove = this.createElement('button', 'btnRemove', contentNote);
-            btnRemove.textContent = 'x';
+            const btnRemove = this.createElement('i', 'bi-trash2', contentNote);
             btnRemove.id = 'btnRemove';
 
+            this.flag = false;
             this.div.remove();
         }         
     }
