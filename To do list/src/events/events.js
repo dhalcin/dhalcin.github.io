@@ -3,12 +3,16 @@ import AddTask from "../task/task";
 import Special from "../specialButtons/special";
 import DateModule from "../date/date";
 import Notes from "../notes/notes";
+import List from "../listTasks/listTasks";
+import Show from "../showTasks/showTasks";
 
 export default class Events {
     constructor() {
         this.modal = new Modal();
         this.date = new DateModule();
-        this.task = new AddTask(this.date);
+        this.list = new List()
+        this.task = new AddTask(this.date, this.list);
+        this.show = new Show(this.list)
         this.special = null;
         this.notes = null;
 
@@ -79,6 +83,17 @@ export default class Events {
                     this.notes.discardNote();
                     this.flagNote = null;
                     break;
+
+                case 'btn-low':
+                    this.show.priorityLow()
+                    break;
+                
+                case 'btn-medium':
+                    this.show.priorityMedium();
+                    break;
+                
+                case 'btn-high':
+                    this.show.priorityHigh();
 
                 default:
                     break;
