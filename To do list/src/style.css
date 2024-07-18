@@ -43,7 +43,7 @@ h2 {
 }
 
 .lt-priority {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
