@@ -1,7 +1,8 @@
 import DateModule from "../date/date";
+import List from "../listTasks/listTasks";
 
 export default class AddTask {
-    constructor(dateModule) {
+    constructor(dateModule, list) {
         this.container = document.querySelector('.tasks');
 
         // * Modal
@@ -13,6 +14,8 @@ export default class AddTask {
 
         // Get methods from DateModule class
         this.dateModule = dateModule;
+
+        this.list = list;
     }
 
     validateInputs() {
@@ -73,10 +76,11 @@ export default class AddTask {
                 // The element `i` is obtained and `dataset` is assigned based on the variable priority
                 priorityButton.querySelector('i').dataset.priority = priority;
                 lastChild[2].appendChild(priorityButton);
+                
+                return priority;
             }
         }
     } 
-
 
     taskLocation() {
 
@@ -125,6 +129,12 @@ export default class AddTask {
         this.dueDate.value = this.dateModule.dateIso();
     }
 
+    listTasks(priority, task) {
+        if (priority === 'low') this.list.lowPriority(task);
+        if (priority === 'medium') this.list.mediumPriority(task);
+        if (priority == 'high') this.list.highPriority(task);
+    }
+
     addTask() {
         if (!this.validateInputs()) {
             return false;
@@ -149,7 +159,7 @@ export default class AddTask {
         
         lastChild[1].appendChild(p);
 
-        this.setPriority(lastChild);
+        const priority = this.setPriority(lastChild);
         const span = document.createElement('span');
         span.classList.add('task-duedate');
         
@@ -165,6 +175,8 @@ export default class AddTask {
 
         this.resetForm();
         this.taskLocation();
+
+        this.listTasks(priority, task);
         return true;
     }
 }
