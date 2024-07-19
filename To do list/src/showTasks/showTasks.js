@@ -7,8 +7,9 @@ export default class Show {
     }
 
     emptyContainer() {
-        for (let i = 1; i < this.nodes.length; i++) {
-            this.nodes[i].remove();
+        console.log(this.nodes);
+        while (this.nodes.length > 1) {
+            this.nodes[1].remove();
         }
     }
 
@@ -16,6 +17,7 @@ export default class Show {
         for (let i = 0; i < list.length; i++) {
             this.container.appendChild(list[i]);
         }
+
     }
 
     displayTask(list) {
