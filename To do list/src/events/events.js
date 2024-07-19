@@ -137,4 +137,8 @@ export default class Events {
             if (e.key === 'Enter' && this.verification()) this.modal.closedModal();
         });
     }
+
+    remeber() {
+        this.list.remeberTask();
+    }
 }
