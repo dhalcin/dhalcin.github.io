@@ -1,5 +1,5 @@
 import DateModule from "../date/date";
-import List from "../listTasks/listTasks";
+import ListPriorities from "../taskPriorities/ListPriorities";
 import Storage from "../storage/storage";
 
 export default class AddTask {
