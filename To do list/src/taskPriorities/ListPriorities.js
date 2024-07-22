@@ -1,4 +1,4 @@
-export default class List {
+export default class ListPriorities {
     constructor() {
         this.container = document.querySelector('.tasks');
         this.child = this.container.children;
@@ -7,7 +7,9 @@ export default class List {
         this.high = [];
     }
 
-    remeberTask() {
+    // Iterate over all child elements of 'this.container' and store the tasks in
+    // a list according to their priorities
+    rememberTask() {
         for (let i = 1; i < this.child.length; i++) {
             const task = this.child[i];
             const priority = task.querySelector('.bi-circle').dataset.priority;
