@@ -20,7 +20,7 @@ export default class Storage {
         if (!storedTask) {
             this.tasks.push(task);
             this.store();
-
+        //
         } else {
             this.tasks = JSON.parse(storedTask);
             this.tasks.push(task);
