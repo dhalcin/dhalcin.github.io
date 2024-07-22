@@ -1,8 +1,9 @@
 import DateModule from "../date/date";
 import List from "../listTasks/listTasks";
+import Storage from "../storage/storage";
 
 export default class AddTask {
-    constructor(dateModule, list) {
+    constructor(dateModule, list, storage) {
         this.container = document.querySelector('.tasks');
 
         // * Modal
@@ -14,8 +15,8 @@ export default class AddTask {
 
         // Get methods from DateModule class
         this.dateModule = dateModule;
-
         this.list = list;
+        this.storage = storage;
     }
 
     validateInputs() {
@@ -135,6 +136,10 @@ export default class AddTask {
         if (priority == 'high') this.list.highPriority(task);
     }
 
+    taskStorage(nameTask, description, priority, date) {
+        this.storage.getSave(nameTask, description, priority, date);
+    }
+
     addTask() {
         if (!this.validateInputs()) {
             return false;
@@ -177,6 +182,8 @@ export default class AddTask {
         this.taskLocation();
 
         this.listTasks(priority, task);
+
+        this.taskStorage(h3.textContent, p.textContent, priority, span.textContent);
         return true;
     }
 }

@@ -5,13 +5,15 @@ import DateModule from "../date/date";
 import Notes from "../notes/notes";
 import List from "../listTasks/listTasks";
 import Show from "../showTasks/showTasks";
+import Storage from "../storage/storage";
 
 export default class Events {
     constructor() {
         this.modal = new Modal();
         this.date = new DateModule();
         this.list = new List()
-        this.task = new AddTask(this.date, this.list);
+        this.storage = new Storage()
+        this.task = new AddTask(this.date, this.list, this.storage);
         this.show = new Show(this.list)
         this.special = null;
         this.notes = null;
