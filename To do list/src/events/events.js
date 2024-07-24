@@ -8,11 +8,11 @@ import ShowTaskPriorities from "../ShowTaskPriorities/ShowTaskPriorites";
 import Storage from "../storage/storage";
 
 export default class Events {
-    constructor() {
+    constructor(storedTasks) {
         this.modal = new Modal();
         this.date = new DateModule();
         this.list = new ListPriorities()
-        this.storage = new Storage()
+        this.storage = new Storage(storedTasks)
         this.task = new AddTask(this.date, this.list, this.storage);
         this.show = new ShowTaskPriorities(this.list)
         this.special = null;
