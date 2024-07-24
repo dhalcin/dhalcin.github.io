@@ -1,15 +1,10 @@
 export default class Storage {
-    constructor() {
-        this.tasks = [];
-    }
-    
-    store() {
-        return localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    constructor(storedTasks) {
+        // The tasks can be an empty array or an array with previously stored tasks
+        this.storedTasks = storedTasks;
     }
 
     getSave(nameTask, description , priority, date) {
-        const storedTask = localStorage.getItem('tasks');
-        
         let task = {
             "name": nameTask,
             "description": description,
@@ -17,14 +12,9 @@ export default class Storage {
             "date": date
         }
 
-        if (!storedTask) {
-            this.tasks.push(task);
-            this.store();
-        //
-        } else {
-            this.tasks = JSON.parse(storedTask);
-            this.tasks.push(task);
-            this.store();
-        }
+        this.storedTasks.push(task);
+        
+        // Converts the storedTasks array to a JSON string and stores it in localStorage
+        localStorage.setItem('tasks', JSON.stringify(this.storedTasks));
     }
 }
