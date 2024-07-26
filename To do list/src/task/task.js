@@ -116,8 +116,7 @@ export default class AddTask {
         });
 
 
-      }
-
+    }
 
     resetForm() {
         this.taskName.value = '';
@@ -130,14 +129,9 @@ export default class AddTask {
         this.dueDate.value = this.dateModule.dateIso();
     }
 
-    listTasks(priority, task) {
-        if (priority === 'low') this.list.lowPriority(task);
-        if (priority === 'medium') this.list.mediumPriority(task);
-        if (priority == 'high') this.list.highPriority(task);
-    }
-
-    taskStorage(nameTask, description, priority, date) {
-        this.storage.getSave(nameTask, description, priority, date);
+    // * Arguments obtained are : div.task and the textContent of the children of div.task
+    taskStorage(div, nameTask, description, priority, date) {
+        this.storage.getSave(div, nameTask, description, priority, date);
     }
 
     addTask() {
@@ -181,9 +175,7 @@ export default class AddTask {
         this.resetForm();
         this.taskLocation();
 
-        this.listTasks(priority, task);
-
-        this.taskStorage(h3.textContent, p.textContent, priority, span.textContent);
+        this.taskStorage(task, h3.textContent, p.textContent, priority, span.textContent);
         return true;
     }
 }
