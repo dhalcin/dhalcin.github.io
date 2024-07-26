@@ -11,10 +11,10 @@ export default class Events {
     constructor(storedTasks) {
         this.modal = new Modal();
         this.date = new DateModule();
-        this.list = new ListPriorities();
-        this.storage = new Storage(storedTasks, this.list);
+        this.list = new ListPriorities()
+        this.storage = new Storage(storedTasks)
         this.task = new AddTask(this.date, this.list, this.storage);
-        this.show = new ShowTaskPriorities(this.list);
+        this.show = new ShowTaskPriorities(this.list)
         this.special = null;
         this.notes = null;
 
@@ -84,10 +84,6 @@ export default class Events {
                 case 'discard':
                     this.notes.discardNote();
                     this.flagNote = null;
-                    break;
-                
-                case 'btn-allTasks':
-                    this.show.allTasks();
                     break;
 
                 case 'btn-low':
