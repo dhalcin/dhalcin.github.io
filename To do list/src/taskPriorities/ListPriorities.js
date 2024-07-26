@@ -5,7 +5,6 @@ export default class ListPriorities {
         this.low = [];
         this.medium = [];
         this.high = [];
-        this.alls = [];
     }
 
     // Iterate over all child elements of 'this.container' and store the tasks in
@@ -33,10 +32,6 @@ export default class ListPriorities {
             }
            
         }
-    }
-
-    allsTasks(task) {
-        this.alls.push(task);
     }
 
     lowPriority(task) {
