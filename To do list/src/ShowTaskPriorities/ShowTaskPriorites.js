@@ -28,6 +28,10 @@ export default class ShowTaskPriorities {
         this.appendTask(list);
     }
 
+    allTasks() {
+        this.displayTask(this.list.alls);
+    }
+
     priorityLow() {
         this.displayTask(this.list.low);
     }
