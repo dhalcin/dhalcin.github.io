@@ -1,5 +1,9 @@
+import Create from '../createElements/createElements'
+
 export default class ListPriorities {
-    constructor() {
+    constructor(storedTasks) {
+        this.create = new Create();
+        this.storedTasks = storedTasks;
         this.container = document.querySelector('.tasks');
         this.child = this.container.children;
         this.low = [];
@@ -8,32 +12,23 @@ export default class ListPriorities {
         this.alls = [];
     }
 
-    // Iterate over all child elements of 'this.container' and store the tasks in
-    // a list according to their priorities
-    rememberTask() {
-        for (let i = 1; i < this.child.length; i++) {
-            const task = this.child[i];
-            const priority = task.querySelector('.bi-circle').dataset.priority;
+    // Get all tasks from the localStorage when re-entering the To do list and save the in their corresponding list
+    listStoredTask() {
+        const tasks = this.storedTasks;
+        const len = tasks.length;
 
-            switch (priority) {
-                case 'low':
-                    this.lowPriority(task);
-                    break;
-                
-                case 'medium':
-                    this.mediumPriority(task);
-                    break;
-                
-                case 'high':
-                    this.highPriority(task);
-                    break;
-                
-                default:
-                    break;
+        if (len !== 0) {
+            for (let obj = 0; obj < len; obj++) {
+                Object.entries(tasks[obj]).forEach(([key, value], index) => {
+                    if (index === 0) this.create.createElement('h3', 'task-name', value);
+                    if (index === 1) this.create.createElement('p', 'text-description', value);
+                    if (index === 2) this.create.createElement('span', 'priority', value);
+                    if (index === 3) this.create.createElement('span', 'task-dueddate', value)
+                });
             }
-           
         }
     }
+    
 
     allsTasks(task) {
         this.alls.push(task);
