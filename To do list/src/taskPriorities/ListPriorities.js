@@ -13,6 +13,7 @@ export default class ListPriorities {
     }
 
     // Get all tasks from the localStorage when re-entering the To do list and save the in their corresponding list
+
     listStoredTask() {
         const tasks = this.storedTasks;
         const len = tasks.length;
