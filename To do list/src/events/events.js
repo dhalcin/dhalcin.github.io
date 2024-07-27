@@ -11,10 +11,10 @@ export default class Events {
     constructor(storedTasks) {
         this.modal = new Modal();
         this.date = new DateModule();
-        this.list = new ListPriorities()
+        this.list = new ListPriorities(storedTasks);
         this.storage = new Storage(storedTasks, this.list)
         this.task = new AddTask(this.date, this.list, this.storage);
-        this.show = new ShowTaskPriorities(this.list)
+        this.show = new ShowTaskPriorities(this.list);
         this.special = null;
         this.notes = null;
 
@@ -145,6 +145,6 @@ export default class Events {
     }
 
     remeber() {
-        this.list.rememberTask();
+        this.list.listStoredTask();
     }
 }
