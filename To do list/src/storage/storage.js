@@ -22,7 +22,9 @@ export default class Storage {
             "name": nameTask,
             "description": description,
             "priority": priority,
-            "date": date
+            "date": date,
+            "pencil": null,
+            "trash": null
         }
 
         this.listTasks(priority, div);
