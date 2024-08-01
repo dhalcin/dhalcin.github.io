@@ -21,6 +21,7 @@ export default class ListPriorities {
             for (let obj = 0; obj < len; obj++) {
                 // For each task stored in localStorage a div.task container is created
                 const task = this.create.div('task', this.container);
+                let priority;
 
                 Object.entries(tasks[obj]).forEach(([key, value], index) => {
                     // For each task element that is the name, description, priority, date, edit and delete a container is created, div.task-div
@@ -30,6 +31,7 @@ export default class ListPriorities {
                     * Depending on the array index (tasks[obj]) the property will be accessed. According to the property the new node will be
                     * created taking into account the value (textContent) of if it is a button (priority, pencil or trash)  
                     */
+
                     switch (index) {
                         case 0:
                             this.create.h3_P_Span('h3', value, taskDiv);
@@ -41,6 +43,7 @@ export default class ListPriorities {
 
                         case 2:
                             this.create.buttons('bi-circle', value, taskDiv);
+                            priority = value;
                             break;
 
                         case 3:
@@ -58,9 +61,14 @@ export default class ListPriorities {
                         default:
                             break;
                     }
-
+                    
                 });
 
+                this.alls.push(task);
+
+                if (priority === 'low') this.low.push(task);
+                if (priority === 'medium') this.medium.push(task);
+                if (priority === 'high') this.high.push(task);
             }
         }
     }
