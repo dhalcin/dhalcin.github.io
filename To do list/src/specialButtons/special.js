@@ -27,19 +27,36 @@ export default class Special {
         // Get the `i` element representing the task priority within the task container
         this.priorityIcon = this.container.querySelector('.bi-circle');
 
-        // Retrieve the `dataset` from the `i` element
-        const priority = this.priorityIcon.dataset.priority;
-        
-        if (priority === 'low') prioritysInpt[0].checked = true;
+        // Retrieve the `color` from the `i` element
+        const color = this.priorityIcon.style.color;
+        let priority = null;
 
-        if (priority === 'medium') prioritysInpt[1].checked = true;
-
-        if (priority === 'high') prioritysInpt[2].checked = true;
+        switch (color) {
+            case 'yellow':
+                prioritysInpt[0].checked = true;
+                priority = 'low';
+                break;
+            
+            case 'blue':
+                prioritysInpt[1].checked = true;
+                priority = 'medium';
+                break;
+            
+            case 'red':
+                prioritysInpt[2].checked = true;
+                priority = 'high';
+                break;
+            
+            default:
+                break;
+        }
 
         // Get the task description element within the task container
         this.taskDescription = this.container.querySelector('.text-description');
         
         descriptionInput.value = this.taskDescription.textContent;
+            
+        return [nameInput.value, descriptionInput.value, priority, this.taskDate.textContent];
 
     }
 
