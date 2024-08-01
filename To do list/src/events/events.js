@@ -13,7 +13,7 @@ export default class Events {
         this.date = new DateModule();
         this.list = new ListPriorities(storedTasks);
         this.storage = new Storage(storedTasks, this.list)
-        this.task = new AddTask(this.date, this.list, this.storage);
+        this.task = new AddTask(this.date, this.list, this.storage, storedTasks);
         this.show = new ShowTaskPriorities(this.list);
         this.special = null;
         this.notes = null;
@@ -21,11 +21,12 @@ export default class Events {
         // Setting a flag
         this.flagSpecial = null;
         this.flagNote = null;
+        this.oldElements = null;
     }
 
     // Method to verify if the task can be added successfully
-    verification() {
-        return this.task.addTask();
+    verification(listElements) {
+        return this.task.addTask(listElements);
     }
 
     clearClosed() {
@@ -59,13 +60,15 @@ export default class Events {
                 // Save task and close modal when the save button is clicked, if verification is successful
                 case 'save-btn':
 
-                    // Get the true os 'flag' and add edits to the current task, using 'trash()' and immediately adding the new 'edited task'
-                    if (this.flagSpecial && this.verification()) {
+                    // * Get the true os 'flag' and add edits to the current task, using 'trash()' and immediately adding the new 'edited task'
+                    // ** The value returned by ´this.special.edit´, the list of DOM elements are used as a form of memory to keep track of the
+                    // ** task that is being modified
+                    if (this.flagSpecial && this.verification(this.oldElements)) {
 
                         // Since there is already an instance of 'Special' you can use 'trash()'
                         this.special.trash();
                         this.modal.closedModal();
-                        this.flagSpecial = null;
+                        this.flagSpecial = null; 
                     }
 
                     if (this.verification()) this.modal.closedModal();
@@ -117,7 +120,12 @@ export default class Events {
                 this.modal.openModal();
 
                 // Entering the arguments task name, task description, task date, task priority
-                this.special.edit(this.task.taskName, this.task.description, this.task.dueDate, this.task.inpts);
+                const edit = this.special.edit(this.task.taskName, this.task.description, this.task.dueDate, this.task.inpts);
+                
+                // ´this.special.edit´ returns a list with all the elements of the task (DOM) except for :
+                // bi-pencil and bi-trash3 which will always be constant for all tasks
+                this.oldElements = edit;
+                
                 this.flagSpecial = true;
                 
             }
