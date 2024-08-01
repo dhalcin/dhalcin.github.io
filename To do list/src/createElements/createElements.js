@@ -10,7 +10,7 @@ export default class Create {
     // Method to create an h3, p or span element
     h3_P_Span(tag, content, container) {
         let element = document.createElement(tag);
-        if (tag === 'h3') element.classList.add('task-name');
+        if (tag === 'h3') container.classList.add('task-name');
         if (tag === 'p') element.classList.add('text-description');
         if (tag === 'span') element.classList.add('task-duedate');
 
@@ -27,9 +27,22 @@ export default class Create {
         // * Dependig on the type of button; bi-circle, bi-pencil, bi-trash and taking into account the button priority (if any)
         if (typeButton === 'bi-circle') {
             icon.classList.add(typeButton);
-            if (priority === 'low') icon.style.color = 'yellow';
-            if (priority === 'medium') icon.style.color = 'blue';
-            if (priority === 'high') icon.style.color = 'red';
+            switch (priority) {
+                case 'low':
+                    icon.style.color = 'yellow';
+                    break;
+
+                case 'medium':
+                    icon.style.color = 'blue';
+                    break;
+
+                case 'high':
+                    icon.style.color = 'red';
+                    break;
+
+                default:
+                    break;
+            }
 
         } else {
             icon.classList.add(typeButton);
