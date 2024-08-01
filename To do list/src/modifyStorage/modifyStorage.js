@@ -10,12 +10,14 @@ export default class Modify {
 
         [nameTask, description, priority, date] = oldElements;
 
+         // Loop through each object in the storage array
         for (let obj = 0; obj < this.storage.length; obj++) {
             let value = Object.values(this.storage[obj]);
 
+             // Check if the task details match the oldElements
             for (let i = 0; i <= 3; i++) {
                 if (value[0] === nameTask && value[1] === description && value[2] === priority && value[3] === date) {
-                    return obj;
+                    return obj; // Return the index of the matching task
                 }
             }
         }
@@ -28,7 +30,10 @@ export default class Modify {
 
         [newName, newDescription, newPriority, newDate] = newElements;
 
+         // Get the index of the old task that matches the oldElements
         const index = this.oldTask(oldElements);
+
+         // Update the task details in the storage array at the found index
         storage[index].name = newName
         storage[index].description = newDescription;
         storage[index].priority = newPriority;
