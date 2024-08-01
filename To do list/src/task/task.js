@@ -1,9 +1,10 @@
 import DateModule from "../date/date";
 import ListPriorities from "../taskPriorities/ListPriorities";
 import Storage from "../storage/storage";
+import Modify from "../modifyStorage/modifyStorage";
 
 export default class AddTask {
-    constructor(dateModule, list, storage) {
+    constructor(dateModule, list, storage, storedTasks) {
         this.container = document.querySelector('.tasks');
 
         // * Modal
@@ -17,6 +18,8 @@ export default class AddTask {
         this.dateModule = dateModule;
         this.list = list;
         this.storage = storage;
+        // * storedTask is the JSON (localStorage) fetched in index.js and passed as argument to event.js
+        this.modify = storedTasks;
     }
 
     validateInputs() {
@@ -73,11 +76,7 @@ export default class AddTask {
                 }
 
                 const priorityButton = this.createButton('bi-circle', color);
-
-                // The element `i` is obtained and `dataset` is assigned based on the variable priority
-                priorityButton.querySelector('i').dataset.priority = priority;
                 lastChild[2].appendChild(priorityButton);
-                
                 return priority;
             }
         }
@@ -134,7 +133,13 @@ export default class AddTask {
         this.storage.getSave(div, nameTask, description, priority, date);
     }
 
-    addTask() {
+    // * Method that gets the form elements (modal) when clicking on the edit button (bi-pencil) and modifying the task in localStorage
+    modifyStorage(oldElements, newElements) {
+        const local = new Modify(this.modify);
+        local.newTask(oldElements, newElements);
+    }
+
+    addTask(oldElements = null) {
         if (!this.validateInputs()) {
             return false;
         }
@@ -175,7 +180,14 @@ export default class AddTask {
         this.resetForm();
         this.taskLocation();
 
-        this.taskStorage(task, h3.textContent, p.textContent, priority, span.textContent);
+        // If the argument 'oldElements' is not null, it means that that event to modify the task is triggered.
+        // 'oldElements' refers to the elements of the tasks that are being modified but have not yet been saved.
+        if (oldElements) {
+            this.modifyStorage(oldElements, [h3.textContent, p.textContent, priority, span.textContent])
+        } else {
+            this.taskStorage(task, h3.textContent, p.textContent, priority, span.textContent);
+        }
+       
         return true;
     }
 }
