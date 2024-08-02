@@ -6,6 +6,7 @@ import Notes from "../notes/notes";
 import ListPriorities from "../taskPriorities/ListPriorities";
 import ShowTaskPriorities from "../ShowTaskPriorities/ShowTaskPriorites";
 import Storage from "../storage/storage";
+import Modify from "../modifyStorage/modifyStorage";
 
 export default class Events {
     constructor(storedTasks) {
@@ -17,6 +18,7 @@ export default class Events {
         this.show = new ShowTaskPriorities(this.list);
         this.special = null;
         this.notes = null;
+        this.modify = storedTasks;
 
         // Setting a flag
         this.flagSpecial = null;
@@ -132,10 +134,21 @@ export default class Events {
 
             // Check in the clicked element is delete button (trash icon)
             if (element.classList.contains('bi-trash3')) {
+                // DOM
                 const special = new Special(element, this.date);
-                special.trash();
+
+                // LocalStorage
+                // Entering the arguments task name, task description, task date, task priority
+                const elements = special.edit(this.task.taskName, this.task.description, this.task.dueDate, this.task.inpts);
+                
+                const remove = new Modify(this.modify);
+                remove.removeTask(elements); // localStorage
+                 
+                // DOM
+                special.trash(); 
             }
 
+            // Remove note
             if (element.classList.contains('bi-trash2')) {
                 this.notes.removeNotes(element);
             }
