@@ -23,6 +23,13 @@ export default class Modify {
         }
     }
 
+    removeTask(elements) {
+        const index = this.oldTask(elements);
+        this.storage.splice(index, 1);
+
+        localStorage.setItem('tasks', JSON.stringify(this.storage));
+    }
+
     newTask(oldElements, newElements) {
         const storage = this.storage;
 
