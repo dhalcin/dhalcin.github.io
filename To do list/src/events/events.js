@@ -7,17 +7,24 @@ import ListPriorities from "../taskPriorities/ListPriorities";
 import ShowTaskPriorities from "../ShowTaskPriorities/ShowTaskPriorites";
 import Storage from "../storage/storage";
 import Modify from "../modifyStorage/modifyStorage";
+import notesStorage from "../storage/notesStorage";
 
 export default class Events {
-    constructor(storedTasks) {
+    constructor(storedTasks, storedNotes) {
         this.modal = new Modal();
         this.date = new DateModule();
         this.list = new ListPriorities(storedTasks);
         this.storage = new Storage(storedTasks, this.list)
         this.task = new AddTask(this.date, this.list, this.storage, storedTasks);
         this.show = new ShowTaskPriorities(this.list);
+        this.notes = new Notes();
+
+        // storage of notes
+        this.storedNotes = new notesStorage(storedNotes);
+        // storage of notes
+
         this.special = null;
-        this.notes = null;
+        
         this.modify = storedTasks;
 
         // Setting a flag
@@ -77,12 +84,12 @@ export default class Events {
                     break;
                     
                 case 'add-notes':
-                    this.notes = new Notes();
                     if (!this.flagNote) this.flagNote = this.notes.openNote();
                     break;
                 
                 case 'add-note':
-                    this.notes.addNote();
+                    const textArea = this.notes.addNote();
+                    this.storedNotes.storedNote(textArea);
                     this.flagNote = null;
                     break;
                 
@@ -151,6 +158,8 @@ export default class Events {
             // Remove note
             if (element.classList.contains('bi-trash2')) {
                 this.notes.removeNotes(element);
+                this.storedNotes.removeNote(element)
+
             }
 
         });
@@ -167,5 +176,6 @@ export default class Events {
 
     remeber() {
         this.list.listStoredTask();
+        this.storedNotes.rememberNotes();
     }
 }
