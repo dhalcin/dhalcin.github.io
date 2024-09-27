@@ -14,20 +14,23 @@
         <form action="" class="search">
 
             <i class="bi bi-geo-alt-fill"></i>
-            <input type="text" placeholder="Enter your location">
+            <input id="input-search" type="text" placeholder="Enter your location">
             <button class="button-search"><i class="bi bi-search"></i></button>
 
         </form>
 
-        <div class="weather-card">
-            <img class="image-weather" src="./images/clear.png" alt="">
-        </div>
+        <div class="weather-card"></div>
 
         <div class="temperature">
 
             <div class="temp-unit">
                 <h2 class="temp">36</h2>
                 <p class="unit">°C</p>
+            </div>
+
+            <div class="unites">
+                <button class="unite" id="centigrade">ºC</button>
+                <button class="unite" id="fahrenheit">ºF</button>
             </div>
             
             <div class="description-time">
@@ -58,5 +61,7 @@
         </div>
 
     </main>
+
+    <script src="main.js"></script>
 </body>
 </html>
