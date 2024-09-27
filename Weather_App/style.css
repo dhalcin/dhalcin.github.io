@@ -121,10 +121,6 @@ input:hover {
     outline: none;
 }
 
-#centigrade {
-    background: #bae6fd;
-}
-
 .unite {
     cursor: pointer;
 }
@@ -153,4 +149,5 @@ input:hover {
 .text {
     display: flex;
     flex-direction: column;
+    font-size: 0.9rem;
 }
