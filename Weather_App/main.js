@@ -36,7 +36,15 @@ function unitConversion(temp, unit) {
     return celsius;
 }
 
-function addTemp(temp, unt, id) {
+function addTemp(temp = null, unt, id) {
+    // * 'temp' will be null when 'catch' is activated that is '!response.ok' os true
+    if (temp === null) {
+        tagTemp.innerHTML = 0;
+        unit.innerHTML = '';
+        celsius.style.background = '#F0F0F0';
+        return;
+    }
+
     tagTemp.innerHTML = unitConversion(temp, unt);
     unit.innerHTML = unt;
 
@@ -52,7 +60,13 @@ function addTemp(temp, unt, id) {
 }
 
 function weatherDescription(conditions) {
-    description.innerHTML = conditions;
+    // * Sometimes weather conditions are 'partly-cloudy-night', so it's a new format
+    let condition = conditions.replaceAll('-', ' ')
+                    .split(' ')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // * I get the first letter of the word and convert it to a capital letter.
+                    .join(' ')
+
+    description.innerHTML = condition;
 }
 
 function weatherDetails(humidity, wind) {
@@ -60,7 +74,7 @@ function weatherDetails(humidity, wind) {
     speed.innerHTML = `${wind} Km/h`;
 }
 
-function remastered(icon, temp, conditions, humidity, wind) {
+function updateWeatherImg(icon) {
     switch (icon) {
         case 'rain':
             addImage('rain');
@@ -95,16 +109,19 @@ function remastered(icon, temp, conditions, humidity, wind) {
             addImage('clear-night');
             break;
 
-
         default:
             break;
     }
+}
 
+function remastered(icon, temp, humidity, wind) {
+    updateWeatherImg(icon);
     addTemp(temp, '°C');
-    weatherDescription(conditions);
+    weatherDescription(icon);
     weatherDetails(humidity, wind)
 }
 
+// * The change of units, celsius to fahrenheit, this is the click event will only be triggered when the API query is successful.
 function changeUnit() {
     unites.addEventListener('click', e => {
         let id = e.target.id;
@@ -123,26 +140,38 @@ function changeUnit() {
 }
 
 function getData(location) {
-    const address = location.resolvedAddress;
     const current = location.currentConditions;
     const temp = current.temp;
     const icon = current.icon;
-    const conditions = current.conditions;
     const humidity = current.humidity;
     const wind = current.windspeed;
 
-    //console.log(`${address}; Temp: ${temp}; conditions: ${conditions}; humidity: ${humidity}; windSpeed: ${wind}; icon: ${icon}`);
-    remastered(icon, temp, conditions, humidity, wind);
+    remastered(icon, temp, humidity, wind);
 
     changeUnit();
 
 }
 
 async function connexion(url) {
-    const response = await fetch(url);
-    const location = await response.json();
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const location = await response.json();
+        getData(location);
+
+    } catch (error) {
+        console.error(`Error fetching weather data: `, error);
+
+        // * Adding in the weather-card (const card) container a custom error message. 
+        addImage('error');
+        addTemp(null, '°C', 'celsius');
+        weatherDescription('---');
+        weatherDetails('--- ', '--- ');
+        input.focus();
+    }
     
-    getData(location);
 }
 
 search.addEventListener('click', e => {
