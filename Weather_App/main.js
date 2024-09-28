@@ -15,6 +15,7 @@ const unites = document.querySelector('.unites');
 
 const description = document.querySelector('.description');
 
+const details = document.querySelector('.weather-details');
 const percentage = document.querySelector('.percentage');
 const speed = document.querySelector('.speed');
 
@@ -152,7 +153,9 @@ function getData(location) {
 
 }
 
-async function connexion(url) {
+// * async / await
+
+/*async function connexion(url) {
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -172,12 +175,32 @@ async function connexion(url) {
         input.focus();
     }
     
+}*/
+
+// * fetch
+
+function connexion(url) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => getData(data))
+        .catch(error => {
+            console.error('Error fetching weather data :', error);
+            addImage('error');
+            addTemp(null, '°C', 'celsius');
+            weatherDescription('---');
+            weatherDetails('--- ', '--- ');
+            input.focus();
+        });
 }
 
 search.addEventListener('click', e => {
     e.preventDefault();
     
     if (input.value === '') return;
+
+    main.classList.add('active');
+    unites.style.display = 'flex';
+    details.classList.add('weather-details-active');
 
     const address = input.value.trim().replace(' ', ',');
     const url = `${API}${address}?key=${KEY}`;
